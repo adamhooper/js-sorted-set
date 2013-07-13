@@ -65,14 +65,14 @@ Here's the full SortedSet iterator API:
 
 | Operation | Syntax (js-sorted-set) | Notes |
 | --------- | ---------------------- | ----- |
-| Find iterator | `var iterator = set.findIterator(value);` | `iterator` points to the left of `value`. If `value` is not in `set`, `iterator` points before the first item _greater than_ `value`. If `value` is greater than the final item in `set`, `iterator` points to the right of the final item. |
+| Find | `var iterator = set.findIterator(value);` | `iterator` points to the left of `value`. If `value` is not in `set`, `iterator` points before the first item _greater than_ `value`. If `value` is greater than the final item in `set`, `iterator` points to the right of the final item. |
 | Begin | `var iterator = set.beginIterator();` | If `set` is empty, this is equivalent to `var iterator = set.endIterator();` |
 | End | `var iterator = set.endIterator();` | Points past the end of `set`; there is never a value here |
-| Value at iterator | `var value = iterator.value();` | For an end iterator, returns `null` |
-| Iterate forward | `var iterator2 = iterator.next();` | If `iterator` is an end iterator, returns `null` |
-| Iterate backward | `var iterator2 = iterator.previous();` | If `iterator` is a begin iterator, returns `null` |
-| Can iterate forward | `var isBegin = !iterator.hasPrevious();` | |
-| Can iterate backward | `var isEnd = !iterator.hasNext();` | Remember, if `iterator` is pointing before the final item in `set`, then `hasNext()` will return `true` -- even though `iterator.next().value() === null` |
+| Value | `var value = iterator.value();` | For an end iterator, returns `null` |
+| Forward | `var iterator2 = iterator.next();` | If `iterator` is an end iterator, returns `null` |
+| Backward | `var iterator2 = iterator.previous();` | If `iterator` is a begin iterator, returns `null` |
+| Can go forward | `var isBegin = !iterator.hasPrevious();` | |
+| Can go backward | `var isEnd = !iterator.hasNext();` | Remember, if `iterator` is pointing before the final item in `set`, then `hasNext()` will return `true` -- even though `iterator.next().value() === null` |
 
 All iterators on `set` become invalid as soon as something calls `set.insert()`
 or `set.remove()`.
