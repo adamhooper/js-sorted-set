@@ -150,8 +150,8 @@ You'll see running times like this:
 | Operation | Array | Binary tree | Red-black tree |
 | --------- | ----- | ----------- | -------------- |
 | Create | O(1) | O(1) | O(1) |
-| Insert | O(n) (often slow) | O(n) (sometimes fast, sometimes slow) | O(lg n) (fast) |
-| Remove | O(n) (often slow) | O(n) (sometimes fast, sometimes slow) | O(lg n) (fast) |
+| Insert | O(n) (often slow) | O(n) (often slow) | O(lg n) (fast) |
+| Remove | O(n) (often slow) | O(n) (often slow) | O(lg n) (fast) |
 | Iterate | O(n) (fast) | O(n) (slowest) | O(n) (slower than Array) |
 | Find | O(lg n) (fastest) | O(n) (slowest) | O(lg n) (slower than Array) |
 
