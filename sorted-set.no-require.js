@@ -923,7 +923,7 @@ define("almond", function(){});
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
   define('priv/RedBlackTreeStrategy',['./AbstractBinaryTreeStrategy'], function(AbstractBinaryTreeStrategy) {
-    var Node, RedBlackTreeStrategy, colorFlip, findMinNode, fixUp, insertInNode, moveRedLeft, moveRedRight, removeFromNode, removeMinNode, rotateLeft, rotateRight, walkNodes, walkValues;
+    var Node, RedBlackTreeStrategy, colorFlip, findMinNode, fixUp, insertInNode, moveRedLeft, moveRedRight, removeFromNode, removeMinNode, rotateLeft, rotateRight;
     Node = (function() {
       function Node(value) {
         this.value = value;
@@ -1065,36 +1065,6 @@ define("almond", function(){});
         h = fixUp(h);
       }
       return h;
-    };
-    walkValues = function(h, callback) {
-      var stack;
-      stack = [];
-      while (h !== null || stack.length) {
-        if (h !== null) {
-          stack.push(h);
-          h = h.left;
-        } else {
-          h = stack.pop();
-          callback(h.value);
-          h = h.right;
-        }
-      }
-      return void 0;
-    };
-    walkNodes = function(h, callback) {
-      var stack;
-      stack = [];
-      while (h !== null || stack.length) {
-        if (h !== null) {
-          stack.push(h);
-          h = h.left;
-        } else {
-          h = stack.pop();
-          callback(h);
-          h = h.right;
-        }
-      }
-      return void 0;
     };
     return RedBlackTreeStrategy = (function(_super) {
       __extends(RedBlackTreeStrategy, _super);

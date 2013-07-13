@@ -144,32 +144,6 @@ define [ './AbstractBinaryTreeStrategy' ], (AbstractBinaryTreeStrategy) ->
 
     h
 
-  # Walks the tree, inorder.
-  walkValues = (h, callback) ->
-    # Copied from http://en.wikipedia.org/wiki/Tree_traversal#In-order
-    stack = []
-    while h isnt null || stack.length
-      if h isnt null
-        stack.push(h)
-        h = h.left
-      else
-        h = stack.pop()
-        callback(h.value)
-        h = h.right
-    undefined
-
-  walkNodes = (h, callback) ->
-    stack = []
-    while h isnt null || stack.length
-      if h isnt null
-        stack.push(h)
-        h = h.left
-      else
-        h = stack.pop()
-        callback(h)
-        h = h.right
-    undefined
-
   class RedBlackTreeStrategy extends AbstractBinaryTreeStrategy
     constructor: (@options) ->
       @comparator = @options.comparator
