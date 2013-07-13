@@ -1,8 +1,8 @@
 define [
-  'priv/AbstractSortedSet'
-  'priv/ArrayStrategy'
-  'priv/BinaryTreeStrategy'
-  'priv/RedBlackTreeStrategy'
+  './priv/AbstractSortedSet'
+  './priv/ArrayStrategy'
+  './priv/BinaryTreeStrategy'
+  './priv/RedBlackTreeStrategy'
 ], (
   AbstractSortedSet,
   ArrayStrategy,
