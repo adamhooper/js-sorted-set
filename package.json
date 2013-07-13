@@ -27,8 +27,8 @@
   "devDependencies": {
     "grunt": "~0.4.1",
     "grunt-contrib-coffee": "~0.7.0",
-    "grunt-contrib-requirejs": "~0.4.1",
     "grunt-contrib-jasmine": "~0.5.1",
-    "grunt-template-jasmine-requirejs": "~0.1.3"
+    "grunt-template-jasmine-requirejs": "~0.1.3",
+    "grunt-requirejs": "~0.3.5"
   }
 }

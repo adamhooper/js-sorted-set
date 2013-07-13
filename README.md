@@ -40,6 +40,16 @@ Then write code like this:
       console.log(set.map(function(x) { return x * 2; })); // returns [ 20, 4 ]
     });
 
+If you don't like RequireJS, you can download the standalone version,
+`sorted-set.no-require.js`, and write:
+
+    var set = new SortedSet({ comparator: function(a, b) { return b - a; });
+    set.insert(5);
+    set.insert(3);
+    set.insert(2);
+    set.remove(3);
+    console.log(set.map(function(x) { return x * 2; })); // returns [ 20, 4 ]
+
 Operations
 ==========
 

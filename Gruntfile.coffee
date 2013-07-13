@@ -34,6 +34,24 @@ module.exports = (grunt) ->
           optimize: 'uglify2'
           out: './sorted-set.min.js'
 
+      almond:
+        options:
+          name: 'index'
+          baseUrl: 'js/'
+          optimize: 'none'
+          almond: true
+          wrap: true
+          out: './sorted-set.no-require.js'
+
+      almond_minified:
+        options:
+          name: 'index'
+          baseUrl: 'js/'
+          optimize: 'uglify2'
+          almond: true
+          wrap: true
+          out: './sorted-set.no-require.min.js'
+
     jasmine:
       all:
         src: 'js/**/*.js'
@@ -46,7 +64,7 @@ module.exports = (grunt) ->
               baseUrl: 'js/'
 
   grunt.loadNpmTasks('grunt-contrib-coffee')
-  grunt.loadNpmTasks('grunt-contrib-requirejs')
+  grunt.loadNpmTasks('grunt-requirejs')
   grunt.loadNpmTasks('grunt-contrib-jasmine')
 
   grunt.registerTask('default', [ 'coffee', 'requirejs' ])
