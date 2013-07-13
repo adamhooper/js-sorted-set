@@ -1,0 +1,15 @@
+{
+  "name": "js-sorted-set",
+  "version": "0.0.1",
+  "main": "sorted-set.js",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "js",
+    "coffee",
+    "spec",
+    "spec-coffee",
+    "Gruntfile.js",
+    "package.json"
+  ]
+}
