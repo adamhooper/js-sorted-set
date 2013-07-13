@@ -112,10 +112,10 @@ Because this is a particularly dangerous API to use, you must set the option
 Strategies
 ==========
 
-We can use a more efficient `Array` approach than one which calls `sort()` all
-the time. This strategy keeps the array ordered at all times by inserting and
-removing elements into and out from the correct array indices. The downside:
-large swaths of the array must be rewritten during each insert and remove.
+We can be somewhat efficient in an `Array` approach by avoiding `sort()` calls.
+This strategy keeps the array ordered at all times by inserting and removing
+elements into and out from the correct array indices. The downside: large swaths
+of the array must be rewritten during each insert and remove.
 
 We can also create a simple binary tree. `insert()` and `remove()` won't
 overwrite the entire array each time, so this can be faster. But it's far
