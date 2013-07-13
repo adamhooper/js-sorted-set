@@ -165,6 +165,12 @@ You'll see running times like this:
 | Iterate | O(n) (fast) | O(n) (slowest) | O(n) (slower than Array) |
 | Find | O(lg n) (fastest) | O(n) (slowest) | O(lg n) (slower than Array) |
 
+According to some simple [jsPerf
+tests](http://jsperf.com/js-sorted-set-insert-remove), you should use
+`ArrayStrategy` if you plan on maintaining about 100 to 1,000 items in your set.
+At that size, `ArrayStrategy`'s `insert()` and `remove()` are fastest in today's
+browsers; and `ArrayStrategy`'s iteration is faster at all sizes.
+
 Contributing
 ============
 
