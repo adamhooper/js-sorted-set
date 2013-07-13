@@ -74,6 +74,9 @@ Here's the full SortedSet iterator API:
 | Can iterate forward | `var isBegin = !iterator.hasPrevious();` | |
 | Can iterate backward | `var isEnd = !iterator.hasNext();` | Remember, if `iterator` is pointing before the final item in `set`, then `hasNext()` will return `true` -- even though `iterator.next().value() === null` |
 
+All iterators on `set` become invalid as soon as something calls `set.insert()`
+or `set.remove()`.
+
 Options
 =======
 
