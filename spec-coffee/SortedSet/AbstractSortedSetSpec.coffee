@@ -1,4 +1,4 @@
-define [ 'priv/AbstractSortedSet' ], (AbstractSortedSet) ->
+define [ 'SortedSet/AbstractSortedSet' ], (AbstractSortedSet) ->
   numberCompare = (a, b) -> a - b
 
   describe 'AbstractSortedSet', ->

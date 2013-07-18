@@ -1,5 +1,5 @@
 (function() {
-  require(['priv/ArrayStrategy'], function(ArrayStrategy) {
+  require(['SortedSet/ArrayStrategy'], function(ArrayStrategy) {
     return StrategyHelper.describeStrategy('Array-based strategy', ArrayStrategy);
   });
 

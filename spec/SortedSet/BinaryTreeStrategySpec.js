@@ -1,5 +1,5 @@
 (function() {
-  require(['priv/BinaryTreeStrategy'], function(BinaryTreeStrategy) {
+  require(['SortedSet/BinaryTreeStrategy'], function(BinaryTreeStrategy) {
     return StrategyHelper.describeStrategy('Binary tree-based strategy', BinaryTreeStrategy);
   });
 

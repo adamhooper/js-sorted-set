@@ -1,5 +1,5 @@
 (function() {
-  define(['priv/AbstractSortedSet'], function(AbstractSortedSet) {
+  define(['SortedSet/AbstractSortedSet'], function(AbstractSortedSet) {
     var numberCompare;
     numberCompare = function(a, b) {
       return a - b;

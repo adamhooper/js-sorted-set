@@ -408,7 +408,7 @@ var requirejs, require, define;
 define("almond", function(){});
 
 (function() {
-  define('priv/AbstractSortedSet',[],function() {
+  define('SortedSet/AbstractSortedSet',[],function() {
     var AbstractSortedSet;
     return AbstractSortedSet = (function() {
       function AbstractSortedSet(options) {
@@ -505,7 +505,7 @@ define("almond", function(){});
 //@ sourceMappingURL=AbstractSortedSet.js.map
 */;
 (function() {
-  define('priv/ArrayStrategy',[],function() {
+  define('SortedSet/ArrayStrategy',[],function() {
     var ArrayStrategy, Iterator, binarySearchForIndex;
     Iterator = function(priv, index) {
       var data;
@@ -627,7 +627,7 @@ define("almond", function(){});
 //@ sourceMappingURL=ArrayStrategy.js.map
 */;
 (function() {
-  define('priv/BinaryTreeIterator',[], function() {
+  define('SortedSet/BinaryTreeIterator',[], function() {
     var BinaryTreeIterator, descendAllTheWay, moveCursor;
     descendAllTheWay = function(leftOrRight, node) {
       var parent;
@@ -772,7 +772,7 @@ define("almond", function(){});
 //@ sourceMappingURL=BinaryTreeIterator.js.map
 */;
 (function() {
-  define('priv/AbstractBinaryTreeStrategy',['./BinaryTreeIterator'], function(BinaryTreeIterator) {
+  define('SortedSet/AbstractBinaryTreeStrategy',['./BinaryTreeIterator'], function(BinaryTreeIterator) {
     var AbstractBinaryTree, binaryTreeTraverse;
     binaryTreeTraverse = function(node, callback) {
       if (node !== null) {
@@ -830,7 +830,7 @@ define("almond", function(){});
   var __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-  define('priv/BinaryTreeStrategy',['./AbstractBinaryTreeStrategy'], function(AbstractBinaryTreeStrategy) {
+  define('SortedSet/BinaryTreeStrategy',['./AbstractBinaryTreeStrategy'], function(AbstractBinaryTreeStrategy) {
     var BinaryTreeStrategy, Node, binaryTreeDelete, nodeAllTheWay;
     Node = (function() {
       function Node(value) {
@@ -922,7 +922,7 @@ define("almond", function(){});
   var __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-  define('priv/RedBlackTreeStrategy',['./AbstractBinaryTreeStrategy'], function(AbstractBinaryTreeStrategy) {
+  define('SortedSet/RedBlackTreeStrategy',['./AbstractBinaryTreeStrategy'], function(AbstractBinaryTreeStrategy) {
     var Node, RedBlackTreeStrategy, colorFlip, findMinNode, fixUp, insertInNode, moveRedLeft, moveRedRight, removeFromNode, removeMinNode, rotateLeft, rotateRight;
     Node = (function() {
       function Node(value) {
@@ -1103,7 +1103,7 @@ define("almond", function(){});
   var __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-  define('SortedSet',['./priv/AbstractSortedSet', './priv/ArrayStrategy', './priv/BinaryTreeStrategy', './priv/RedBlackTreeStrategy'], function(AbstractSortedSet, ArrayStrategy, BinaryTreeStrategy, RedBlackTreeStrategy) {
+  define('SortedSet',['./SortedSet/AbstractSortedSet', './SortedSet/ArrayStrategy', './SortedSet/BinaryTreeStrategy', './SortedSet/RedBlackTreeStrategy'], function(AbstractSortedSet, ArrayStrategy, BinaryTreeStrategy, RedBlackTreeStrategy) {
     var SortedSet;
     SortedSet = (function(_super) {
       __extends(SortedSet, _super);
