@@ -1,6 +1,6 @@
 {
   "name": "js-sorted-set",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "main": "sorted-set.js",
   "ignore": [
     "**/.*",

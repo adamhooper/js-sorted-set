@@ -431,6 +431,10 @@ define("almond", function(){});
         return this;
       };
 
+      AbstractSortedSet.prototype.contains = function(value) {
+        return this.priv.contains(value);
+      };
+
       AbstractSortedSet.prototype.toArray = function() {
         return this.priv.toArray();
       };
@@ -590,6 +594,10 @@ define("almond", function(){});
           throw 'Value not in set';
         }
         return this.data.splice(index, 1);
+      };
+
+      ArrayStrategy.prototype.contains = function(value) {
+        return this.data.indexOf(value) !== -1;
       };
 
       ArrayStrategy.prototype.forEachImpl = function(callback, sortedSet, thisArg) {
@@ -802,6 +810,23 @@ define("almond", function(){});
           return i += 1;
         });
         return void 0;
+      };
+
+      AbstractBinaryTree.prototype.contains = function(value) {
+        var cmp, comparator, node;
+        comparator = this.comparator;
+        node = this.root;
+        while (node !== null) {
+          cmp = comparator(value, node.value);
+          if (cmp === 0) {
+            break;
+          } else if (cmp < 0) {
+            node = node.left;
+          } else {
+            node = node.right;
+          }
+        }
+        return node !== null && node.value === value;
       };
 
       AbstractBinaryTree.prototype.findIterator = function(value) {
