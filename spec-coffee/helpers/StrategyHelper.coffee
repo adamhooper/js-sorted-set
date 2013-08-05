@@ -75,8 +75,23 @@ window.StrategyHelper = (->
           priv.remove(2)
           expect(priv.toArray()).toEqual([1, 3])
 
-        it 'should return true from contain', ->
+        it 'should contain the first value', ->
+          expect(priv.contains(1)).toBe(true)
+
+        it 'should contain the last value', ->
+          expect(priv.contains(3)).toBe(true)
+
+        it 'should contain a middle value', ->
           expect(priv.contains(2)).toBe(true)
+
+        it 'should not contain a value below the lowest', ->
+          expect(priv.contains(0)).toBe(false)
+
+        it 'should not contain a value above the highest', ->
+          expect(priv.contains(4)).toBe(false)
+
+        it 'should not contain a value in between two values', ->
+          expect(priv.contains(1.5)).toBe(false)
 
         it 'should return false from contain', ->
           expect(priv.contains(4)).toBe(false)

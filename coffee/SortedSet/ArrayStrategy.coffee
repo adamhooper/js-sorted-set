@@ -51,7 +51,8 @@ define ->
       @data.splice(index, 1)
 
     contains: (value) ->
-      @data.indexOf(value) != -1
+      index = binarySearchForIndex(@data, value, @comparator)
+      @index != @data.length && @data[index] == value
 
     forEachImpl: (callback, sortedSet, thisArg) ->
       for value, index in @data

@@ -87,7 +87,9 @@
       };
 
       ArrayStrategy.prototype.contains = function(value) {
-        return this.data.indexOf(value) !== -1;
+        var index;
+        index = binarySearchForIndex(this.data, value, this.comparator);
+        return this.index !== this.data.length && this.data[index] === value;
       };
 
       ArrayStrategy.prototype.forEachImpl = function(callback, sortedSet, thisArg) {

@@ -89,8 +89,23 @@
               priv.remove(2);
               return expect(priv.toArray()).toEqual([1, 3]);
             });
-            it('should return true from contain', function() {
+            it('should contain the first value', function() {
+              return expect(priv.contains(1)).toBe(true);
+            });
+            it('should contain the last value', function() {
+              return expect(priv.contains(3)).toBe(true);
+            });
+            it('should contain a middle value', function() {
               return expect(priv.contains(2)).toBe(true);
+            });
+            it('should not contain a value below the lowest', function() {
+              return expect(priv.contains(0)).toBe(false);
+            });
+            it('should not contain a value above the highest', function() {
+              return expect(priv.contains(4)).toBe(false);
+            });
+            it('should not contain a value in between two values', function() {
+              return expect(priv.contains(1.5)).toBe(false);
             });
             it('should return false from contain', function() {
               return expect(priv.contains(4)).toBe(false);
