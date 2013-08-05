@@ -50,6 +50,9 @@ define ->
       throw 'Value not in set' if @data[index] != value
       @data.splice(index, 1)
 
+    contains: (value) ->
+      @data.indexOf(value) != -1
+
     forEachImpl: (callback, sortedSet, thisArg) ->
       for value, index in @data
         callback.call(thisArg, value, index, sortedSet)

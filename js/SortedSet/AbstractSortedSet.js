@@ -22,6 +22,10 @@
         return this;
       };
 
+      AbstractSortedSet.prototype.contains = function(value) {
+        return this.priv.contains(value);
+      };
+
       AbstractSortedSet.prototype.toArray = function() {
         return this.priv.toArray();
       };

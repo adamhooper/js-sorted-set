@@ -9,6 +9,9 @@ window.StrategyHelper = (->
         beforeEach ->
           priv = new strategy(comparator: numberComparator)
 
+        it 'should not contain a value', ->
+          expect(priv.contains(2)).toEqual(false)
+
         it 'should store its data in an array for easy testing', ->
           expect(priv.toArray()).toEqual([])
 
@@ -71,6 +74,12 @@ window.StrategyHelper = (->
         it 'should remove from the middle', ->
           priv.remove(2)
           expect(priv.toArray()).toEqual([1, 3])
+
+        it 'should return true from contain', ->
+          expect(priv.contains(2)).toBe(true)
+
+        it 'should return false from contain', ->
+          expect(priv.contains(4)).toBe(false)
 
         it 'should return a begin iterator', ->
           iterator = priv.beginIterator()

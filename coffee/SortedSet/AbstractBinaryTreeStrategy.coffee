@@ -21,6 +21,21 @@ define [ './BinaryTreeIterator' ], (BinaryTreeIterator) ->
         i += 1
       undefined
 
+    contains: (value) ->
+      comparator = @comparator
+
+      node = @root
+      while node isnt null
+        cmp = comparator(value, node.value)
+        if cmp == 0
+          break
+        else if cmp < 0
+          node = node.left
+        else
+          node = node.right
+
+      node isnt null && node.value == value
+
     findIterator: (value) -> BinaryTreeIterator.find(this, value, @comparator)
     beginIterator: -> BinaryTreeIterator.left(this)
     endIterator: -> BinaryTreeIterator.right(this)

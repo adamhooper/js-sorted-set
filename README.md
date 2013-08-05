@@ -17,6 +17,7 @@ As an illustration, let's build a simple sorted set out of an `Array`:
 | Find | `set.sort(); var index = set.indexOf(value);` |
 | Previous | `var previousIndex = index - 1;` |
 | Next | `var nextIndex = index + 1;` |
+| Test | `var isInSet = set.indexOf(value) != -1;` |
 
 ... this works, but it's a bit cryptic and some operations--notably iterate--
 will be very slow with large sets.
@@ -37,6 +38,7 @@ Then write code like this:
       set.insert(3);
       set.insert(2);
       set.remove(3);
+      var yes = set.contains(2);
       console.log(set.map(function(x) { return x * 2; })); // returns [ 20, 4 ]
     });
 
@@ -48,6 +50,7 @@ If you don't like RequireJS, you can download the standalone version,
     set.insert(3);
     set.insert(2);
     set.remove(3);
+    var yes = set.contains(2);
     console.log(set.map(function(x) { return x * 2; })); // returns [ 20, 4 ]
 
 Operations
@@ -60,6 +63,7 @@ The SortedSet API:
 | Create | `var set = new SortedSet();` |
 | Insert | `set.insert(value);` |
 | Remove | `set.remove(value);` |
+| Test | `set.contains(value);` | Returns `true` or `false` |
 | Iterate | `set.forEach(doSomething);` | Plus `set.map()` and other [iterative methods](https://developer.mozilla.org/en-US/docs/Web/JavaScript/New_in_JavaScript/1.6#Array_extras), returning `Array`s and scalars |
 
 Find, Previous and Next work with an Iterator pattern. An iterator is an
@@ -163,7 +167,7 @@ You'll see running times like this:
 | Insert | O(n) (often slow) | O(n) (often slow) | O(lg n) (fast) |
 | Remove | O(n) (often slow) | O(n) (often slow) | O(lg n) (fast) |
 | Iterate | O(n) (fast) | O(n) (slowest) | O(n) (slower than Array) |
-| Find | O(lg n) (fastest) | O(n) (slowest) | O(lg n) (slower than Array) |
+| Find, Test | O(lg n) (fastest) | O(n) (slowest) | O(lg n) (slower than Array) |
 
 According to some simple [jsPerf
 tests](http://jsperf.com/js-sorted-set-insert-remove), you should use

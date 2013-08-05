@@ -13,6 +13,9 @@ define ->
       @priv.remove(value)
       this
 
+    contains: (value) ->
+      @priv.contains(value)
+
     # Returns this set as an Array
     toArray: -> @priv.toArray()
 

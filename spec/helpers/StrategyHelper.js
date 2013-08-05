@@ -15,6 +15,9 @@
                 comparator: numberComparator
               });
             });
+            it('should not contain a value', function() {
+              return expect(priv.contains(2)).toEqual(false);
+            });
             it('should store its data in an array for easy testing', function() {
               return expect(priv.toArray()).toEqual([]);
             });
@@ -85,6 +88,12 @@
             it('should remove from the middle', function() {
               priv.remove(2);
               return expect(priv.toArray()).toEqual([1, 3]);
+            });
+            it('should return true from contain', function() {
+              return expect(priv.contains(2)).toBe(true);
+            });
+            it('should return false from contain', function() {
+              return expect(priv.contains(4)).toBe(false);
             });
             it('should return a begin iterator', function() {
               var iterator;

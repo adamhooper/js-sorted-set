@@ -86,6 +86,10 @@
         return this.data.splice(index, 1);
       };
 
+      ArrayStrategy.prototype.contains = function(value) {
+        return this.data.indexOf(value) !== -1;
+      };
+
       ArrayStrategy.prototype.forEachImpl = function(callback, sortedSet, thisArg) {
         var index, value, _i, _len, _ref;
         _ref = this.data;
