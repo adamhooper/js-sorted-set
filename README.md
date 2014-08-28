@@ -25,25 +25,16 @@ will be very slow with large sets.
 Installing
 ==========
 
-Download `sorted-set.js`. Alternatively, install through Bower:
-`bower install js-sorted-set`
+You can `npm install js-sorted-set` or `bower install js-sorted-set`.
+Alternatively, just download `sorted-set.js` from this directory.
 
-Include it through [RequireJS](http://requirejs.org/).
+Include it through [RequireJS](http://requirejs.org/) or
+[Browserify](http://browserify.org). Or, to pollute your global scope, insert
+this in your HTML:
+
+    <script src="priority-queue.js"></script>
 
 Then write code like this:
-
-    require([ 'vendor/sorted-set' ], function(SortedSet) {
-      var set = new SortedSet({ comparator: function(a, b) { return b - a; });
-      set.insert(5);
-      set.insert(3);
-      set.insert(2);
-      set.remove(3);
-      var yes = set.contains(2);
-      console.log(set.map(function(x) { return x * 2; })); // returns [ 20, 4 ]
-    });
-
-If you don't like RequireJS, you can download the standalone version,
-`sorted-set.no-require.js`, and write:
 
     var set = new SortedSet({ comparator: function(a, b) { return b - a; });
     set.insert(5);
@@ -63,6 +54,7 @@ The SortedSet API:
 | Create | `var set = new SortedSet();` |
 | Insert | `set.insert(value);` |
 | Remove | `set.remove(value);` |
+| Length | `set.length;` |
 | Test | `set.contains(value);` | Returns `true` or `false` |
 | Iterate | `set.forEach(doSomething);` | Plus `set.map()` and other [iterative methods](https://developer.mozilla.org/en-US/docs/Web/JavaScript/New_in_JavaScript/1.6#Array_extras), returning `Array`s and scalars |
 
@@ -79,6 +71,7 @@ Here's the full SortedSet iterator API:
 
 | Operation | Syntax (js-sorted-set) | Notes |
 | --------- | ---------------------- | ----- |
+| Length | `var len = set.length;` |
 | Find | `var iterator = set.findIterator(value);` | `iterator` points to the left of `value`. If `value` is not in `set`, `iterator` points to the left of the first item _greater than_ `value`. If `value` is greater than the final item in `set`, `iterator` points to the right of the final item. |
 | Begin | `var iterator = set.beginIterator();` | If `set` is empty, this is equivalent to `var iterator = set.endIterator();` |
 | End | `var iterator = set.endIterator();` | Points past the end of `set`; there is never a value here |
@@ -164,6 +157,7 @@ You'll see running times like this:
 | Operation | Array | Binary tree | Red-black tree |
 | --------- | ----- | ----------- | -------------- |
 | Create | O(1) | O(1) | O(1) |
+| Length | O(1) | O(1) | O(1) |
 | Insert | O(n) (often slow) | O(n) (often slow) | O(lg n) (fast) |
 | Remove | O(n) (often slow) | O(n) (often slow) | O(lg n) (fast) |
 | Iterate | O(n) (fast) | O(n) (slowest) | O(n) (slower than Array) |

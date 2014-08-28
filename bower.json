@@ -1,14 +1,14 @@
 {
   "name": "js-sorted-set",
-  "version": "0.0.7",
+  "version": "0.1.0",
   "main": "sorted-set.js",
   "ignore": [
     "**/.*",
     "node_modules",
-    "coffee",
-    "spec",
-    "spec-coffee",
-    "Gruntfile.js",
+    "src",
+    "test",
+    "gulpfile.js",
+    "gulpfile.coffee",
     "package.json"
   ]
 }
