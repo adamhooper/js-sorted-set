@@ -36,7 +36,7 @@ this in your HTML:
 
 Then write code like this:
 
-    var set = new SortedSet({ comparator: function(a, b) { return b - a; });
+    var set = new SortedSet({ comparator: function(a, b) { return b - a; }});
     set.insert(5);
     set.insert(3);
     set.insert(2);
