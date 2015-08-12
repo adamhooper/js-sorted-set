@@ -1,15 +1,15 @@
-!function(e){if("object"==typeof exports&&"undefined"!=typeof module)module.exports=e();else if("function"==typeof define&&define.amd)define([],e);else{var f;"undefined"!=typeof window?f=window:"undefined"!=typeof global?f=global:"undefined"!=typeof self&&(f=self),f.SortedSet=e()}}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+!function(e){if("object"==typeof exports&&"undefined"!=typeof module)module.exports=e();else if("function"==typeof define&&define.amd)define([],e);else{var f;"undefined"!=typeof window?f=window:"undefined"!=typeof global?f=global:"undefined"!=typeof self&&(f=self),f.SortedSet=e()}}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(_dereq_,module,exports){
 var AbstractSortedSet, ArrayStrategy, BinaryTreeStrategy, RedBlackTreeStrategy, SortedSet,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-AbstractSortedSet = require('./SortedSet/AbstractSortedSet');
+AbstractSortedSet = _dereq_('./SortedSet/AbstractSortedSet');
 
-ArrayStrategy = require('./SortedSet/ArrayStrategy');
+ArrayStrategy = _dereq_('./SortedSet/ArrayStrategy');
 
-BinaryTreeStrategy = require('./SortedSet/BinaryTreeStrategy');
+BinaryTreeStrategy = _dereq_('./SortedSet/BinaryTreeStrategy');
 
-RedBlackTreeStrategy = require('./SortedSet/RedBlackTreeStrategy');
+RedBlackTreeStrategy = _dereq_('./SortedSet/RedBlackTreeStrategy');
 
 SortedSet = (function(_super) {
   __extends(SortedSet, _super);
@@ -37,10 +37,10 @@ module.exports = SortedSet;
 
 
 
-},{"./SortedSet/AbstractSortedSet":3,"./SortedSet/ArrayStrategy":4,"./SortedSet/BinaryTreeStrategy":6,"./SortedSet/RedBlackTreeStrategy":7}],2:[function(require,module,exports){
+},{"./SortedSet/AbstractSortedSet":3,"./SortedSet/ArrayStrategy":4,"./SortedSet/BinaryTreeStrategy":6,"./SortedSet/RedBlackTreeStrategy":7}],2:[function(_dereq_,module,exports){
 var AbstractBinaryTree, BinaryTreeIterator, binaryTreeTraverse;
 
-BinaryTreeIterator = require('./BinaryTreeIterator');
+BinaryTreeIterator = _dereq_('./BinaryTreeIterator');
 
 binaryTreeTraverse = function(node, callback) {
   if (node !== null) {
@@ -110,7 +110,7 @@ module.exports = AbstractBinaryTree;
 
 
 
-},{"./BinaryTreeIterator":5}],3:[function(require,module,exports){
+},{"./BinaryTreeIterator":5}],3:[function(_dereq_,module,exports){
 var AbstractSortedSet;
 
 module.exports = AbstractSortedSet = (function() {
@@ -210,7 +210,7 @@ module.exports = AbstractSortedSet = (function() {
 
 
 
-},{}],4:[function(require,module,exports){
+},{}],4:[function(_dereq_,module,exports){
 var ArrayStrategy, Iterator, binarySearchForIndex;
 
 Iterator = (function() {
@@ -348,7 +348,7 @@ module.exports = ArrayStrategy;
 
 
 
-},{}],5:[function(require,module,exports){
+},{}],5:[function(_dereq_,module,exports){
 var BinaryTreeIterator, descendAllTheWay, moveCursor;
 
 descendAllTheWay = function(leftOrRight, node) {
@@ -495,12 +495,12 @@ module.exports = BinaryTreeIterator;
 
 
 
-},{}],6:[function(require,module,exports){
+},{}],6:[function(_dereq_,module,exports){
 var AbstractBinaryTreeStrategy, BinaryTreeStrategy, Node, binaryTreeDelete, nodeAllTheWay,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-AbstractBinaryTreeStrategy = require('./AbstractBinaryTreeStrategy');
+AbstractBinaryTreeStrategy = _dereq_('./AbstractBinaryTreeStrategy');
 
 Node = (function() {
   function Node(value) {
@@ -589,12 +589,12 @@ module.exports = BinaryTreeStrategy;
 
 
 
-},{"./AbstractBinaryTreeStrategy":2}],7:[function(require,module,exports){
+},{"./AbstractBinaryTreeStrategy":2}],7:[function(_dereq_,module,exports){
 var AbstractBinaryTreeStrategy, Node, RedBlackTreeStrategy, colorFlip, findMinNode, fixUp, insertInNode, moveRedLeft, moveRedRight, removeFromNode, removeMinNode, rotateLeft, rotateRight,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-AbstractBinaryTreeStrategy = require('./AbstractBinaryTreeStrategy');
+AbstractBinaryTreeStrategy = _dereq_('./AbstractBinaryTreeStrategy');
 
 Node = (function() {
   function Node(value) {

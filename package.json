@@ -1,6 +1,6 @@
 {
   "name": "js-sorted-set",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Sorted set data structures",
   "main": "sorted-set.js",
   "scripts": {},
@@ -28,8 +28,9 @@
     "browserify": "~5.10.0",
     "chai": "~1.9.1",
     "coffeeify": "~0.7.0",
-    "gulp": "~3.8.7",
+    "gulp": "^3.9.0",
     "gulp-coffee": "~2.1.1",
+    "gulp-derequire": "^2.1.0",
     "gulp-mocha": "~1.0.0",
     "gulp-rename": "~1.2.0",
     "gulp-rimraf": "~0.1.0",
@@ -41,8 +42,8 @@
     "karma-mocha": "~0.1.7",
     "karma-phantomjs-launcher": "~0.1.4",
     "mocha": "~1.21.4",
-    "vinyl-source-stream": "~0.1.1",
     "sinon": "~1.10.3",
-    "sinon-chai": "~2.5.0"
+    "sinon-chai": "~2.5.0",
+    "vinyl-source-stream": "~0.1.1"
   }
 }

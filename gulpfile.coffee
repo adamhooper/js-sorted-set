@@ -1,5 +1,6 @@
 browserify = require('browserify')
 coffeeify = require('coffeeify')
+derequire = require('gulp-derequire')
 gulp = require('gulp')
 gutil = require('gulp-util')
 karma = require('karma').server
@@ -23,6 +24,7 @@ gulp.task 'browserify', [ 'clean' ], ->
   b.bundle()
     .on('error', (e) -> gutil.log('Browserify error', e))
     .pipe(source('sorted-set.js'))
+    .pipe(derequire())
     .pipe(gulp.dest('.'))
 
 gulp.task 'minify', [ 'browserify' ], ->
