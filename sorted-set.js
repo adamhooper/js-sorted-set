@@ -1,7 +1,7 @@
-!function(e){if("object"==typeof exports&&"undefined"!=typeof module)module.exports=e();else if("function"==typeof define&&define.amd)define([],e);else{var f;"undefined"!=typeof window?f=window:"undefined"!=typeof global?f=global:"undefined"!=typeof self&&(f=self),f.SortedSet=e()}}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(_dereq_,module,exports){
+(function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.SortedSet = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(_dereq_,module,exports){
 var AbstractSortedSet, ArrayStrategy, BinaryTreeStrategy, RedBlackTreeStrategy, SortedSet,
-  __hasProp = {}.hasOwnProperty,
-  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty;
 
 AbstractSortedSet = _dereq_('./SortedSet/AbstractSortedSet');
 
@@ -11,8 +11,8 @@ BinaryTreeStrategy = _dereq_('./SortedSet/BinaryTreeStrategy');
 
 RedBlackTreeStrategy = _dereq_('./SortedSet/RedBlackTreeStrategy');
 
-SortedSet = (function(_super) {
-  __extends(SortedSet, _super);
+SortedSet = (function(superClass) {
+  extend(SortedSet, superClass);
 
   function SortedSet(options) {
     options || (options = {});
@@ -34,7 +34,6 @@ SortedSet.BinaryTreeStrategy = BinaryTreeStrategy;
 SortedSet.RedBlackTreeStrategy = RedBlackTreeStrategy;
 
 module.exports = SortedSet;
-
 
 
 },{"./SortedSet/AbstractSortedSet":3,"./SortedSet/ArrayStrategy":4,"./SortedSet/BinaryTreeStrategy":6,"./SortedSet/RedBlackTreeStrategy":7}],2:[function(_dereq_,module,exports){
@@ -111,7 +110,6 @@ AbstractBinaryTree = (function() {
 })();
 
 module.exports = AbstractBinaryTree;
-
 
 
 },{"./BinaryTreeIterator":5}],3:[function(_dereq_,module,exports){
@@ -219,14 +217,13 @@ module.exports = AbstractSortedSet = (function() {
 })();
 
 
-
 },{}],4:[function(_dereq_,module,exports){
 var ArrayStrategy, Iterator, binarySearchForIndex;
 
 Iterator = (function() {
-  function Iterator(priv, index) {
+  function Iterator(priv, index1) {
     this.priv = priv;
-    this.index = index;
+    this.index = index1;
     this.data = this.priv.data;
   }
 
@@ -331,10 +328,10 @@ ArrayStrategy = (function() {
   };
 
   ArrayStrategy.prototype.forEachImpl = function(callback, sortedSet, thisArg) {
-    var index, value, _i, _len, _ref;
-    _ref = this.data;
-    for (index = _i = 0, _len = _ref.length; _i < _len; index = ++_i) {
-      value = _ref[index];
+    var i, index, len, ref, value;
+    ref = this.data;
+    for (index = i = 0, len = ref.length; i < len; index = ++i) {
+      value = ref[index];
       callback.call(thisArg, value, index, sortedSet);
     }
     return void 0;
@@ -359,7 +356,6 @@ ArrayStrategy = (function() {
 })();
 
 module.exports = ArrayStrategy;
-
 
 
 },{}],5:[function(_dereq_,module,exports){
@@ -393,9 +389,9 @@ moveCursor = function(leftOrRight, node) {
 };
 
 BinaryTreeIterator = (function() {
-  function BinaryTreeIterator(tree, node) {
-    this.tree = tree;
-    this.node = node;
+  function BinaryTreeIterator(tree1, node1) {
+    this.tree = tree1;
+    this.node = node1;
   }
 
   BinaryTreeIterator.prototype.next = function() {
@@ -508,17 +504,16 @@ BinaryTreeIterator.right = function(tree) {
 module.exports = BinaryTreeIterator;
 
 
-
 },{}],6:[function(_dereq_,module,exports){
 var AbstractBinaryTreeStrategy, BinaryTreeStrategy, Node, binaryTreeDelete, nodeAllTheWay,
-  __hasProp = {}.hasOwnProperty,
-  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty;
 
 AbstractBinaryTreeStrategy = _dereq_('./AbstractBinaryTreeStrategy');
 
 Node = (function() {
-  function Node(value) {
-    this.value = value;
+  function Node(value1) {
+    this.value = value1;
     this.left = null;
     this.right = null;
   }
@@ -560,8 +555,8 @@ binaryTreeDelete = function(node, value, comparator) {
   return node;
 };
 
-BinaryTreeStrategy = (function(_super) {
-  __extends(BinaryTreeStrategy, _super);
+BinaryTreeStrategy = (function(superClass) {
+  extend(BinaryTreeStrategy, superClass);
 
   function BinaryTreeStrategy(options) {
     this.options = options;
@@ -602,17 +597,16 @@ BinaryTreeStrategy = (function(_super) {
 module.exports = BinaryTreeStrategy;
 
 
-
 },{"./AbstractBinaryTreeStrategy":2}],7:[function(_dereq_,module,exports){
 var AbstractBinaryTreeStrategy, Node, RedBlackTreeStrategy, colorFlip, findMinNode, fixUp, insertInNode, moveRedLeft, moveRedRight, removeFromNode, removeMinNode, rotateLeft, rotateRight,
-  __hasProp = {}.hasOwnProperty,
-  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty;
 
 AbstractBinaryTreeStrategy = _dereq_('./AbstractBinaryTreeStrategy');
 
 Node = (function() {
-  function Node(value) {
-    this.value = value;
+  function Node(value1) {
+    this.value = value1;
     this.left = null;
     this.right = null;
     this.isRed = true;
@@ -763,8 +757,8 @@ removeFromNode = function(h, value, compare) {
   return h;
 };
 
-module.exports = RedBlackTreeStrategy = (function(_super) {
-  __extends(RedBlackTreeStrategy, _super);
+module.exports = RedBlackTreeStrategy = (function(superClass) {
+  extend(RedBlackTreeStrategy, superClass);
 
   function RedBlackTreeStrategy(options) {
     this.options = options;
@@ -789,7 +783,6 @@ module.exports = RedBlackTreeStrategy = (function(_super) {
   return RedBlackTreeStrategy;
 
 })(AbstractBinaryTreeStrategy);
-
 
 
 },{"./AbstractBinaryTreeStrategy":2}]},{},[1])(1)

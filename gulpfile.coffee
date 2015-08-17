@@ -3,7 +3,7 @@ coffeeify = require('coffeeify')
 derequire = require('gulp-derequire')
 gulp = require('gulp')
 gutil = require('gulp-util')
-karma = require('karma').server
+karma = require('karma')
 mocha = require('gulp-mocha')
 rename = require('gulp-rename')
 rimraf = require('gulp-rimraf')
@@ -34,20 +34,19 @@ gulp.task 'minify', [ 'browserify' ], ->
     .pipe(gulp.dest('.'))
 
 gulp.task 'test-browser', (done) ->
-  karma.start({
+  new karma.Server({
     singleRun: true
     browsers: [ 'PhantomJS' ]
-    frameworks: [ 'mocha', 'chai', 'browserify' ]
+    frameworks: [ 'browserify', 'mocha', 'chai' ]
     reporters: [ 'dots' ]
+    files: [ 'test/**/*Spec.coffee' ]
+    preprocessors:
+      'test/**/*Spec.coffee': [ 'browserify' ]
     browserify:
       debug: true
       extensions: [ '.js', '.coffee' ]
-      files: [ 'test/**/*Spec.coffee' ]
-      transform: [ coffeeify ]
-    preprocessors:
-      '**/*.coffee': 'coffee'
-      '/**/*.browserify': 'browserify'
-  }, done)
+      transform: [ 'coffeeify' ]
+  }, done).start()
 
 gulp.task 'test-node', (done) ->
   gulp.src('test/**/*Spec.coffee', read: false)
