@@ -15,6 +15,11 @@ module.exports = class AbstractSortedSet
     @length -= 1
     this
 
+  clear: ->
+    @priv.clear()
+    @length = 0
+    this
+
   contains: (value) ->
     @priv.contains(value)
 

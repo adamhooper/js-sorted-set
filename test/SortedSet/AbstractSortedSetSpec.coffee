@@ -19,6 +19,7 @@ describe 'AbstractSortedSet', ->
         strategy = this
       insert: sinon.spy()
       remove: sinon.spy()
+      clear: sinon.spy()
       toArray: sinon.stub().returns([])
       forEachImpl: sinon.stub()
       findIterator: sinon.stub()
@@ -51,6 +52,15 @@ describe 'AbstractSortedSet', ->
     it 'should decrement length on remove', ->
       set.insert(1)
       set.remove(1)
+      expect(set.length).to.eq(0)
+
+    it 'should call strategy.clear', ->
+      set.clear()
+      expect(strategy.clear).to.have.been.called
+
+    it 'should set length=0 on clear', ->
+      set.insert(1)
+      set.clear()
       expect(set.length).to.eq(0)
 
     it 'should call toArray', ->

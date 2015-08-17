@@ -63,6 +63,10 @@ AbstractBinaryTree = (function() {
     return ret;
   };
 
+  AbstractBinaryTree.prototype.clear = function() {
+    return this.root = null;
+  };
+
   AbstractBinaryTree.prototype.forEachImpl = function(callback, sortedSet, thisArg) {
     var i;
     i = 0;
@@ -134,6 +138,12 @@ module.exports = AbstractSortedSet = (function() {
   AbstractSortedSet.prototype.remove = function(value) {
     this.priv.remove(value);
     this.length -= 1;
+    return this;
+  };
+
+  AbstractSortedSet.prototype.clear = function() {
+    this.priv.clear();
+    this.length = 0;
     return this;
   };
 
@@ -308,6 +318,10 @@ ArrayStrategy = (function() {
       throw 'Value not in set';
     }
     return this.data.splice(index, 1);
+  };
+
+  ArrayStrategy.prototype.clear = function() {
+    return this.data.length = 0;
   };
 
   ArrayStrategy.prototype.contains = function(value) {

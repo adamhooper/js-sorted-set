@@ -50,6 +50,9 @@ class ArrayStrategy
     throw 'Value not in set' if @data[index] != value
     @data.splice(index, 1)
 
+  clear: ->
+    @data.length = 0
+
   contains: (value) ->
     index = binarySearchForIndex(@data, value, @comparator)
     @index != @data.length && @data[index] == value

@@ -15,6 +15,9 @@ class AbstractBinaryTree
     binaryTreeTraverse(@root, (value) -> ret.push(value))
     ret
 
+  clear: ->
+    @root = null
+
   forEachImpl: (callback, sortedSet, thisArg) ->
     i = 0
     binaryTreeTraverse @root, (value) ->

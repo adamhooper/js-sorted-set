@@ -75,6 +75,16 @@ module.exports =
           priv.remove(2)
           expect(priv.toArray()).to.deep.eq([1, 3])
 
+        it 'should clear', ->
+          priv.clear()
+          expect(priv.toArray()).to.deep.eq([])
+
+        it 'should allow insert after clear', ->
+          priv.clear()
+          priv.insert(4)
+          priv.insert(2)
+          expect(priv.toArray()).to.deep.eq([ 2, 4 ])
+
         it 'should contain the first value', ->
           expect(priv.contains(1)).to.eq(true)
 

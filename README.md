@@ -54,6 +54,7 @@ The SortedSet API:
 | Create | `var set = new SortedSet();` |
 | Insert | `set.insert(value);` |
 | Remove | `set.remove(value);` |
+| Clear | `set.clear();` |
 | Length | `set.length;` |
 | Test | `set.contains(value);` | Returns `true` or `false` |
 | Iterate | `set.forEach(doSomething);` | Plus `set.map()` and other [iterative methods](https://developer.mozilla.org/en-US/docs/Web/JavaScript/New_in_JavaScript/1.6#Array_extras), returning `Array`s and scalars |
@@ -158,6 +159,7 @@ You'll see running times like this:
 | --------- | ----- | ----------- | -------------- |
 | Create | O(1) | O(1) | O(1) |
 | Length | O(1) | O(1) | O(1) |
+| Clear | O(1) | O(n) (in garbage collector) | O(n) (in garbage collector) |
 | Insert | O(n) (often slow) | O(n) (often slow) | O(lg n) (fast) |
 | Remove | O(n) (often slow) | O(n) (often slow) | O(lg n) (fast) |
 | Iterate | O(n) (fast) | O(n) (slowest) | O(n) (slower than Array) |
