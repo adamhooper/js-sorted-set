@@ -1,4 +1,4 @@
-enums = require('../enums')
+
 AbstractBinaryTreeStrategy = require('./AbstractBinaryTreeStrategy')
 
 class Node
@@ -38,35 +38,26 @@ class BinaryTreeStrategy extends AbstractBinaryTreeStrategy
   constructor: (@options) ->
     super()
     @comparator = @options.comparator
-    @insertBehavior = @options.insertBehavior
+    @onInsertConflict = @options.onInsertConflict
     @root = null
 
   insert: (value) ->
     compare = @comparator
+    onInsertConflict = @onInsertConflict
     if @root?
       parent = @root
       loop
         cmp = compare(value, parent.value)
         if cmp == 0
-          switch @insertBehavior
-            when enums.insertBehaviors.throw
-              throw 'Value already in set'
-            when enums.insertBehaviors.replace
-              parent.value = value
-              return true
-            when enums.insertBehaviors.ignore
-              return false
-            else
-              throw 'Unsupported insert behavior #{@insertBehavior}'
+          parent.value = onInsertConflict(parent.value, value)
+          return
         else
           leftOrRight = if cmp < 0 then 'left' else 'right'
           break if parent[leftOrRight] == null
           parent = parent[leftOrRight]
       parent[leftOrRight] = new Node(value)
-      return true
     else
       @root = new Node(value)
-      return true
 
   remove: (value) ->
     @root = binaryTreeDelete(@root, value, @comparator)

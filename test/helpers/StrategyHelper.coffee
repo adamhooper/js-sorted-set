@@ -1,5 +1,5 @@
 
-enums = require '../../dist/enums'
+insertConflictResolvers = require '../../dist/insertConflictResolvers'
 
 numberComparator = (a, b) -> a - b
 
@@ -181,12 +181,12 @@ module.exports =
           iterator = priv.endIterator()
           expect(-> iterator.setValue(2.5)).to.throw()
       
-      describe 'with throw insert behavior', ->
+      describe 'with throw behavior on insert conflict', ->
 
         beforeEach -> 
           comparator = (a, b) -> a.v - b.v
-          insertBehavior = enums.insertBehaviors.throw
-          priv = new strategy({comparator, insertBehavior})
+          onInsertConflict = insertConflictResolvers.throw
+          priv = new strategy({comparator, onInsertConflict})
           priv.insert({ v: 1, q: 'a' })
           priv.insert({ v: 2, q: 'b' })
 
@@ -196,30 +196,28 @@ module.exports =
           catch err
             expect(err).to.eq('Value already in set')
 
-      describe 'with replace insert behavior', ->
+      describe 'with replace behavior on insert conflict', ->
 
         beforeEach -> 
           comparator = (a, b) -> a.v - b.v
-          insertBehavior = enums.insertBehaviors.replace
-          priv = new strategy({comparator, insertBehavior})
+          onInsertConflict = insertConflictResolvers.replace
+          priv = new strategy({comparator, onInsertConflict})
           priv.insert({ v: 1, q: 'a' })
           priv.insert({ v: 2, q: 'b' })
 
         it 'should replace a matching element with the new element', ->
-          result = priv.insert({ v: 1, q: 'c' })
-          expect(result).to.eq(true)
+          priv.insert({ v: 1, q: 'c' })
           expect(priv.toArray()).to.deep.eq([{v: 1, q: 'c'}, {v: 2, q: 'b'}])
 
-      describe 'with ignore insert behavior', ->
+      describe 'with ignore behavior on insert conflict', ->
 
         beforeEach -> 
           comparator = (a, b) -> a.v - b.v
-          insertBehavior = enums.insertBehaviors.ignore
-          priv = new strategy({comparator, insertBehavior})
+          onInsertConflict = insertConflictResolvers.ignore
+          priv = new strategy({comparator, onInsertConflict})
           priv.insert({ v: 1, q: 'a' })
           priv.insert({ v: 2, q: 'b' })
 
         it 'should ignore the new element when inserting an element that matches another ', ->
-          result = priv.insert({ v: 1, q: 'c' })
-          expect(result).to.eq(false)
+          priv.insert({ v: 1, q: 'c' })
           expect(priv.toArray()).to.deep.eq([{v: 1, q: 'a'}, {v: 2, q: 'b'}])

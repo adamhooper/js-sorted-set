@@ -1,6 +1,4 @@
 
-enums = require('../enums');
-
 class Iterator
   constructor: (@priv, @index) ->
     @data = @priv.data
@@ -38,7 +36,7 @@ binarySearchForIndex = (array, value, comparator) ->
 
 class ArrayStrategy
   constructor: (@options) ->
-    @insertBehavior = @options.insertBehavior
+    @onInsertConflict = @options.onInsertConflict
     @comparator = @options.comparator
     @data = []
 
@@ -46,20 +44,10 @@ class ArrayStrategy
 
   insert: (value) ->
     index = binarySearchForIndex(@data, value, @comparator)
-    if value != undefined and @data[index] != undefined and @comparator(@data[index], value) == 0
-      switch @insertBehavior
-        when enums.insertBehaviors.throw
-          throw 'Value already in set'
-        when enums.insertBehaviors.replace
-          @data.splice(index, 1, value)
-          return true
-        when enums.insertBehaviors.ignore
-          return false
-        else
-          throw 'Unsupported insert behavior #{@insertBehavior}'
+    if @data[index] != undefined and @comparator(@data[index], value) == 0
+      @data.splice(index, 1, @onInsertConflict(@data[index], value))
     else
       @data.splice(index, 0, value)
-      return true
 
   remove: (value) ->
     index = binarySearchForIndex(@data, value, @comparator)

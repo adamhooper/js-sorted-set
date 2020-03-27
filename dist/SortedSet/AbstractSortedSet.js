@@ -10,8 +10,8 @@
       if ((options != null ? options.comparator : void 0) == null) {
         throw 'Must pass options.comparator, a comparator';
       }
-      if ((options != null ? options.insertBehavior : void 0) == null) {
-        throw 'Must pass options.insertBehavior, a number';
+      if ((options != null ? options.onInsertConflict : void 0) == null) {
+        throw 'Must pass options.onInsertConflict, a function';
       }
       this.priv = new options.strategy(options);
       this.length = 0;
@@ -131,3 +131,5 @@
   };
 
 }).call(this);
+
+//# sourceMappingURL=AbstractSortedSet.js.map

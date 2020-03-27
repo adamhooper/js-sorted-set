@@ -148,3 +148,5 @@
   module.exports = BinaryTreeIterator;
 
 }).call(this);
+
+//# sourceMappingURL=BinaryTreeIterator.js.map

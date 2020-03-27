@@ -1,5 +1,5 @@
 require('../test_helper')
-enums = require('../../dist/enums')
+insertConflictResolvers = require('../../dist/insertConflictResolvers')
 AbstractSortedSet = require('../../dist/SortedSet/AbstractSortedSet')
 
 numberCompare = (a, b) -> a - b
@@ -31,7 +31,7 @@ describe 'AbstractSortedSet', ->
       set = new AbstractSortedSet
         comparator: numberCompare
         strategy: MockStrategy
-        insertBehavior: enums.insertBehaviors.throw
+        onInsertConflict: insertConflictResolvers.throw
 
     it 'should pass the options to the strategy', ->
       expect(strategy.options.comparator).to.eq(numberCompare)
