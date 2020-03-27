@@ -35,6 +35,7 @@ binaryTreeDelete = (node, value, comparator) ->
 
 class BinaryTreeStrategy extends AbstractBinaryTreeStrategy
   constructor: (@options) ->
+    super()
     @comparator = @options.comparator
     @root = null
 

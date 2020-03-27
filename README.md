@@ -176,9 +176,9 @@ Contributing
 
 1. Fork this repository
 2. Run `npm install`
-3. Write the behavior you expect in `spec-coffee/`
-4. Edit files in `coffee/` until `grunt test` says you're done
-5. Run `grunt` to update `sorted-set.js` and `sorted-set.min.js`
+3. Write the behavior you expect in `test/`
+4. Edit files in `coffee/` until `npm test` says you're done
+5. Run `npm run dist` to update build products in the `dist/` folder
 6. Submit a pull request
 
 License
