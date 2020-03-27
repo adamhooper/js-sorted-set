@@ -4,7 +4,7 @@
   "description": "Sorted set data structures",
   "main": "./dist/SortedSet.js",
   "scripts": {
-    "test": "mocha --extension coffee",
+    "test": "npm run dist && mocha --extension coffee",
     "dist": "coffee --output ./dist src"
   },
   "repository": {
