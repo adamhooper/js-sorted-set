@@ -37,7 +37,7 @@
   "dependencies": {},
   "mocha": {
     "require": ["coffeescript/register"],
-    "reporter": "dot",
+    "reporter": "spec",
     "recursive": true
   }
 }

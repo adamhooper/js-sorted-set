@@ -1,3 +1,6 @@
+
+enums = require '../../dist/enums'
+
 numberComparator = (a, b) -> a - b
 
 module.exports =
@@ -177,3 +180,46 @@ module.exports =
         it 'should not allow setValue() on an end iterator', ->
           iterator = priv.endIterator()
           expect(-> iterator.setValue(2.5)).to.throw()
+      
+      describe 'with throw insert behavior', ->
+
+        beforeEach -> 
+          comparator = (a, b) -> a.v - b.v
+          insertBehavior = enums.insertBehaviors.throw
+          priv = new strategy({comparator, insertBehavior})
+          priv.insert({ v: 1, q: 'a' })
+          priv.insert({ v: 2, q: 'b' })
+
+        it 'should throw when inserting an element that matches another', ->
+          try 
+            priv.insert({ v: 1, q: 'c' })
+          catch err
+            expect(err).to.eq('Value already in set')
+
+      describe 'with replace insert behavior', ->
+
+        beforeEach -> 
+          comparator = (a, b) -> a.v - b.v
+          insertBehavior = enums.insertBehaviors.replace
+          priv = new strategy({comparator, insertBehavior})
+          priv.insert({ v: 1, q: 'a' })
+          priv.insert({ v: 2, q: 'b' })
+
+        it 'should replace a matching element with the new element', ->
+          result = priv.insert({ v: 1, q: 'c' })
+          expect(result).to.eq(true)
+          expect(priv.toArray()).to.deep.eq([{v: 1, q: 'c'}, {v: 2, q: 'b'}])
+
+      describe 'with ignore insert behavior', ->
+
+        beforeEach -> 
+          comparator = (a, b) -> a.v - b.v
+          insertBehavior = enums.insertBehaviors.ignore
+          priv = new strategy({comparator, insertBehavior})
+          priv.insert({ v: 1, q: 'a' })
+          priv.insert({ v: 2, q: 'b' })
+
+        it 'should ignore the new element when inserting an element that matches another ', ->
+          result = priv.insert({ v: 1, q: 'c' })
+          expect(result).to.eq(false)
+          expect(priv.toArray()).to.deep.eq([{v: 1, q: 'a'}, {v: 2, q: 'b'}])

@@ -2,6 +2,7 @@ module.exports = class AbstractSortedSet
   constructor: (options) ->
     throw 'Must pass options.strategy, a strategy' if !options?.strategy?
     throw 'Must pass options.comparator, a comparator' if !options?.comparator?
+    throw 'Must pass options.insertBehavior, a number' if !options?.insertBehavior?
     @priv = new options.strategy(options)
     @length = 0
 
