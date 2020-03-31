@@ -147,6 +147,7 @@ removeFromNode = (h, value, compare) ->
 
 module.exports = class RedBlackTreeStrategy extends AbstractBinaryTreeStrategy
   constructor: (@options) ->
+    super()
     @comparator = @options.comparator
     @root = null
 

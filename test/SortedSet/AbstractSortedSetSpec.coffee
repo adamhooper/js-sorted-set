@@ -1,5 +1,5 @@
 require('../test_helper')
-AbstractSortedSet = require('../../src/SortedSet/AbstractSortedSet')
+AbstractSortedSet = require('../../dist/SortedSet/AbstractSortedSet')
 
 numberCompare = (a, b) -> a - b
 
