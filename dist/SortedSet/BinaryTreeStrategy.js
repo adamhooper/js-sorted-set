@@ -57,15 +57,14 @@
     }
 
     insert(value) {
-      var cmp, compare, leftOrRight, onInsertConflict, parent;
+      var cmp, compare, leftOrRight, parent;
       compare = this.comparator;
-      onInsertConflict = this.onInsertConflict;
       if (this.root != null) {
         parent = this.root;
         while (true) {
           cmp = compare(value, parent.value);
           if (cmp === 0) {
-            parent.value = onInsertConflict(parent.value, value);
+            parent.value = this.onInsertConflict(parent.value, value);
             return;
           } else {
             leftOrRight = cmp < 0 ? 'left' : 'right';

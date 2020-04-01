@@ -16,8 +16,8 @@ SortedSet.ArrayStrategy = ArrayStrategy
 SortedSet.BinaryTreeStrategy = BinaryTreeStrategy
 SortedSet.RedBlackTreeStrategy = RedBlackTreeStrategy
 
-SortedSet.onInsertConflictThrow = insertConflictResolvers.throw
-SortedSet.onInsertConflictReplace = insertConflictResolvers.replace
-SortedSet.onInsertConflictIgnore = insertConflictResolvers.ignore
+SortedSet.OnInsertConflictThrow = insertConflictResolvers.throw
+SortedSet.OnInsertConflictReplace = insertConflictResolvers.replace
+SortedSet.OnInsertConflictIgnore = insertConflictResolvers.ignore
 
 module.exports = SortedSet

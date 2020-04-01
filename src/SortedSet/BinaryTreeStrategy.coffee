@@ -43,13 +43,12 @@ class BinaryTreeStrategy extends AbstractBinaryTreeStrategy
 
   insert: (value) ->
     compare = @comparator
-    onInsertConflict = @onInsertConflict
     if @root?
       parent = @root
       loop
         cmp = compare(value, parent.value)
         if cmp == 0
-          parent.value = onInsertConflict(parent.value, value)
+          parent.value = @onInsertConflict(parent.value, value)
           return
         else
           leftOrRight = if cmp < 0 then 'left' else 'right'
