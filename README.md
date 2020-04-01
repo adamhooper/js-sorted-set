@@ -95,6 +95,26 @@ This is the argument we would pass to
     var compareNumbers = function(a, b) { return a - b; };
     var set = new SortedSet({ comparator: compareNumbers });
 
+How to handle insert conflicts? We'll also add a `onInsertConflict` option that
+provides users with a way to specify what to do in case an item is inserted
+that matches another item already present within the set. Such behavior 
+**must** be specified as a function taking in the conflicting items and
+returning a replacement item for the previously inserted one. The `SortedSet`
+class ships with three implementations such behavior:
+
+    SortedSet.OnInsertConflictThrow     // throws an error
+    SortedSet.OnInsertConflictReplace   // keeps the new item
+    SortedSet.OnInsertConflictIgnore    // keeps the previous item
+
+Unless differently specified through the `onInsertConflict` option, the 
+`SortedSet` class will default to `SortedSet.OnInsertConflictThrow`:
+
+    var set = new SortedSet({ 
+        onInsertConflict: SortedSet.OnInsertConflictThrow
+    });
+    set.insert("foo");
+    set.insert("foo"); // this will throw an error
+
 Finally, some algorithms ask for really fast replacement mechanisms. So let's
 add a `setValue()` method to the iterator, which puts the onus on the user to
 keep things ordered.
