@@ -71,6 +71,7 @@
   ArrayStrategy = class ArrayStrategy {
     constructor(options) {
       this.options = options;
+      this.onInsertConflict = this.options.onInsertConflict;
       this.comparator = this.options.comparator;
       this.data = [];
     }
@@ -82,10 +83,11 @@
     insert(value) {
       var index;
       index = binarySearchForIndex(this.data, value, this.comparator);
-      if (this.data[index] === value) {
-        throw 'Value already in set';
+      if (this.data[index] !== void 0 && this.comparator(this.data[index], value) === 0) {
+        return this.data.splice(index, 1, this.onInsertConflict(this.data[index], value));
+      } else {
+        return this.data.splice(index, 0, value);
       }
-      return this.data.splice(index, 0, value);
     }
 
     remove(value) {
@@ -136,3 +138,5 @@
   module.exports = ArrayStrategy;
 
 }).call(this);
+
+//# sourceMappingURL=ArrayStrategy.js.map

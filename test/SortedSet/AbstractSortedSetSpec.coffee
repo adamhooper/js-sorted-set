@@ -1,4 +1,5 @@
 require('../test_helper')
+insertConflictResolvers = require('../../dist/insertConflictResolvers')
 AbstractSortedSet = require('../../dist/SortedSet/AbstractSortedSet')
 
 numberCompare = (a, b) -> a - b
@@ -30,6 +31,7 @@ describe 'AbstractSortedSet', ->
       set = new AbstractSortedSet
         comparator: numberCompare
         strategy: MockStrategy
+        onInsertConflict: insertConflictResolvers.throw
 
     it 'should pass the options to the strategy', ->
       expect(strategy.options.comparator).to.eq(numberCompare)

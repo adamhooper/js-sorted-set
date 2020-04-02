@@ -1,3 +1,4 @@
+
 AbstractBinaryTreeStrategy = require('./AbstractBinaryTreeStrategy')
 
 # An implementation of Left-Leaning Red-Black trees.
@@ -57,20 +58,21 @@ moveRedRight = (h) ->
     colorFlip(h)
   h
 
-insertInNode = (h, value, compare) ->
+insertInNode = (h, value, compare, onInsertConflict) ->
   if h is null
     return new Node(value)
 
   #if h.left isnt null && h.left.isRed && h.right isnt null && h.right.isRed
   #  colorFlip(h)
 
-  if h.value is value
-    throw 'Value already in set'
+  cmp = compare(value, h.value)
+
+  if cmp == 0
+    h.value = onInsertConflict(h.value, value)
+  else if cmp < 0
+    h.left = insertInNode(h.left, value, compare, onInsertConflict)
   else
-    if compare(value, h.value) < 0
-      h.left = insertInNode(h.left, value, compare)
-    else
-      h.right = insertInNode(h.right, value, compare)
+    h.right = insertInNode(h.right, value, compare, onInsertConflict)
 
   if h.right isnt null && h.right.isRed && !(h.left isnt null && h.left.isRed)
     h = rotateLeft(h)
@@ -149,10 +151,11 @@ module.exports = class RedBlackTreeStrategy extends AbstractBinaryTreeStrategy
   constructor: (@options) ->
     super()
     @comparator = @options.comparator
+    @onInsertConflict = @options.onInsertConflict
     @root = null
 
   insert: (value) ->
-    @root = insertInNode(@root, value, @comparator)
+    @root = insertInNode(@root, value, @comparator, @onInsertConflict)
     @root.isRed = false # always
     undefined
 

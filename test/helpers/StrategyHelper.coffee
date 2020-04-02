@@ -1,3 +1,6 @@
+
+insertConflictResolvers = require '../../dist/insertConflictResolvers'
+
 numberComparator = (a, b) -> a - b
 
 module.exports =
@@ -177,3 +180,44 @@ module.exports =
         it 'should not allow setValue() on an end iterator', ->
           iterator = priv.endIterator()
           expect(-> iterator.setValue(2.5)).to.throw()
+      
+      describe 'with throw behavior on insert conflict', ->
+
+        beforeEach -> 
+          comparator = (a, b) -> a.v - b.v
+          onInsertConflict = insertConflictResolvers.throw
+          priv = new strategy({comparator, onInsertConflict})
+          priv.insert({ v: 1, q: 'a' })
+          priv.insert({ v: 2, q: 'b' })
+
+        it 'should throw when inserting an element that matches another', ->
+          try 
+            priv.insert({ v: 1, q: 'c' })
+          catch err
+            expect(err).to.eq('Value already in set')
+
+      describe 'with replace behavior on insert conflict', ->
+
+        beforeEach -> 
+          comparator = (a, b) -> a.v - b.v
+          onInsertConflict = insertConflictResolvers.replace
+          priv = new strategy({comparator, onInsertConflict})
+          priv.insert({ v: 1, q: 'a' })
+          priv.insert({ v: 2, q: 'b' })
+
+        it 'should replace a matching element with the new element', ->
+          priv.insert({ v: 1, q: 'c' })
+          expect(priv.toArray()).to.deep.eq([{v: 1, q: 'c'}, {v: 2, q: 'b'}])
+
+      describe 'with ignore behavior on insert conflict', ->
+
+        beforeEach -> 
+          comparator = (a, b) -> a.v - b.v
+          onInsertConflict = insertConflictResolvers.ignore
+          priv = new strategy({comparator, onInsertConflict})
+          priv.insert({ v: 1, q: 'a' })
+          priv.insert({ v: 2, q: 'b' })
+
+        it 'should ignore the new element when inserting an element that matches another ', ->
+          priv.insert({ v: 1, q: 'c' })
+          expect(priv.toArray()).to.deep.eq([{v: 1, q: 'a'}, {v: 2, q: 'b'}])

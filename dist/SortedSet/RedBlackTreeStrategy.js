@@ -73,20 +73,20 @@
     return h;
   };
 
-  insertInNode = function(h, value, compare) {
+  insertInNode = function(h, value, compare, onInsertConflict) {
+    var cmp;
     if (h === null) {
       return new Node(value);
     }
     //if h.left isnt null && h.left.isRed && h.right isnt null && h.right.isRed
     //  colorFlip(h)
-    if (h.value === value) {
-      throw 'Value already in set';
+    cmp = compare(value, h.value);
+    if (cmp === 0) {
+      h.value = onInsertConflict(h.value, value);
+    } else if (cmp < 0) {
+      h.left = insertInNode(h.left, value, compare, onInsertConflict);
     } else {
-      if (compare(value, h.value) < 0) {
-        h.left = insertInNode(h.left, value, compare);
-      } else {
-        h.right = insertInNode(h.right, value, compare);
-      }
+      h.right = insertInNode(h.right, value, compare, onInsertConflict);
     }
     if (h.right !== null && h.right.isRed && !(h.left !== null && h.left.isRed)) {
       h = rotateLeft(h);
@@ -179,11 +179,12 @@
       super();
       this.options = options;
       this.comparator = this.options.comparator;
+      this.onInsertConflict = this.options.onInsertConflict;
       this.root = null;
     }
 
     insert(value) {
-      this.root = insertInNode(this.root, value, this.comparator);
+      this.root = insertInNode(this.root, value, this.comparator, this.onInsertConflict);
       this.root.isRed = false; // always
       return void 0;
     }
@@ -199,3 +200,5 @@
   };
 
 }).call(this);
+
+//# sourceMappingURL=RedBlackTreeStrategy.js.map

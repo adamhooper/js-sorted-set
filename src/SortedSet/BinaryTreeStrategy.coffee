@@ -1,3 +1,4 @@
+
 AbstractBinaryTreeStrategy = require('./AbstractBinaryTreeStrategy')
 
 class Node
@@ -37,6 +38,7 @@ class BinaryTreeStrategy extends AbstractBinaryTreeStrategy
   constructor: (@options) ->
     super()
     @comparator = @options.comparator
+    @onInsertConflict = @options.onInsertConflict
     @root = null
 
   insert: (value) ->
@@ -45,10 +47,13 @@ class BinaryTreeStrategy extends AbstractBinaryTreeStrategy
       parent = @root
       loop
         cmp = compare(value, parent.value)
-        throw 'Value already in set' if cmp == 0
-        leftOrRight = if cmp < 0 then 'left' else 'right'
-        break if parent[leftOrRight] == null
-        parent = parent[leftOrRight]
+        if cmp == 0
+          parent.value = @onInsertConflict(parent.value, value)
+          return
+        else
+          leftOrRight = if cmp < 0 then 'left' else 'right'
+          break if parent[leftOrRight] == null
+          parent = parent[leftOrRight]
       parent[leftOrRight] = new Node(value)
     else
       @root = new Node(value)

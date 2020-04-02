@@ -52,6 +52,7 @@
       super();
       this.options = options;
       this.comparator = this.options.comparator;
+      this.onInsertConflict = this.options.onInsertConflict;
       this.root = null;
     }
 
@@ -63,13 +64,15 @@
         while (true) {
           cmp = compare(value, parent.value);
           if (cmp === 0) {
-            throw 'Value already in set';
+            parent.value = this.onInsertConflict(parent.value, value);
+            return;
+          } else {
+            leftOrRight = cmp < 0 ? 'left' : 'right';
+            if (parent[leftOrRight] === null) {
+              break;
+            }
+            parent = parent[leftOrRight];
           }
-          leftOrRight = cmp < 0 ? 'left' : 'right';
-          if (parent[leftOrRight] === null) {
-            break;
-          }
-          parent = parent[leftOrRight];
         }
         return parent[leftOrRight] = new Node(value);
       } else {
@@ -86,3 +89,5 @@
   module.exports = BinaryTreeStrategy;
 
 }).call(this);
+
+//# sourceMappingURL=BinaryTreeStrategy.js.map

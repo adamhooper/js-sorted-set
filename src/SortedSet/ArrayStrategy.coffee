@@ -1,3 +1,4 @@
+
 class Iterator
   constructor: (@priv, @index) ->
     @data = @priv.data
@@ -35,6 +36,7 @@ binarySearchForIndex = (array, value, comparator) ->
 
 class ArrayStrategy
   constructor: (@options) ->
+    @onInsertConflict = @options.onInsertConflict
     @comparator = @options.comparator
     @data = []
 
@@ -42,8 +44,10 @@ class ArrayStrategy
 
   insert: (value) ->
     index = binarySearchForIndex(@data, value, @comparator)
-    throw 'Value already in set' if @data[index] == value
-    @data.splice(index, 0, value)
+    if @data[index] != undefined and @comparator(@data[index], value) == 0
+      @data.splice(index, 1, @onInsertConflict(@data[index], value))
+    else
+      @data.splice(index, 0, value)
 
   remove: (value) ->
     index = binarySearchForIndex(@data, value, @comparator)
