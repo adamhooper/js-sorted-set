@@ -2,10 +2,13 @@
   "name": "js-sorted-set",
   "version": "0.4.0",
   "description": "Sorted set data structures",
-  "main": "./dist/SortedSet.js",
+  "main": "./lib/SortedSet.js",
+  "module": "./es/SortedSet.js",
   "scripts": {
-    "test": "npm run dist && mocha --extension coffee",
-    "dist": "coffee -m --output ./dist src"
+    "test": "mocha",
+    "build-cjs": "babel ./src -d ./lib",
+    "build-umd": "rollup --config",
+    "build": "npm run build-cjs && npm run build-umd"
   },
   "repository": {
     "type": "git",
@@ -28,16 +31,34 @@
   "license": "Public Domain",
   "readmeFilename": "README.md",
   "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.5",
+    "babel-plugin-add-module-exports": "^1.0.2",
     "chai": "^4.2.0",
-    "coffeescript": "^2.5.1",
     "mocha": "^7.1.1",
+    "rollup": "^2.3.4",
+    "rollup-plugin-terser": "^5.3.0",
     "sinon": "^9.0.1",
     "sinon-chai": "^3.5.0"
   },
   "dependencies": {},
   "mocha": {
-    "require": ["coffeescript/register"],
     "reporter": "spec",
     "recursive": true
+  },
+  "babel": {
+    "presets": [
+      [
+        "@babel/preset-env",
+        {
+          "modules": "cjs",
+          "targets": {
+            "node": true
+          }
+        }
+      ]
+    ],
+    "plugins": ["add-module-exports"]
   }
 }
