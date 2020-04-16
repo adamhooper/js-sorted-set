@@ -235,15 +235,7 @@ const describeStrategy = (description, strategy) => {
       });
       return it('should throw when inserting an element that matches another', function() {
         var err;
-        try {
-          return priv.insert({
-            v: 1,
-            q: 'c'
-          });
-        } catch (error) {
-          err = error;
-          return expect(err).to.eq('Value already in set');
-        }
+        return expect(() => priv.insert({ v: 1, q: 'c' })).to.throw('Value already in set');
       });
     });
     describe('with replace behavior on insert conflict', function() {
