@@ -51,11 +51,10 @@ class Iterator {
 };
 
 const binarySearchForIndex = (array, value, comparator) => {
-  var high, low, mid;
-  low = 0;
-  high = array.length;
+  let low = 0;
+  let high = array.length;
   while (low < high) {
-    mid = (low + high) >>> 1;
+    const mid = (low + high) >>> 1;
     if (comparator(array[mid], value) < 0) {
       low = mid + 1;
     } else {
@@ -78,8 +77,7 @@ class ArrayStrategy {
   }
 
   insert(value) {
-    var index;
-    index = binarySearchForIndex(this.data, value, this.comparator);
+    const index = binarySearchForIndex(this.data, value, this.comparator);
     if (this.data[index] !== void 0 && this.comparator(this.data[index], value) === 0) {
       return this.data.splice(index, 1, this.onInsertConflict(this.data[index], value));
     } else {
@@ -88,8 +86,7 @@ class ArrayStrategy {
   }
 
   remove(value) {
-    var index;
-    index = binarySearchForIndex(this.data, value, this.comparator);
+    const index = binarySearchForIndex(this.data, value, this.comparator);
     if (this.data[index] !== value) {
       throw 'Value not in set';
     }
@@ -101,24 +98,20 @@ class ArrayStrategy {
   }
 
   contains(value) {
-    var index;
-    index = binarySearchForIndex(this.data, value, this.comparator);
+    const index = binarySearchForIndex(this.data, value, this.comparator);
     return this.index !== this.data.length && this.data[index] === value;
   }
 
   forEachImpl(callback, sortedSet, thisArg) {
-    var i, index, len, ref, value;
-    ref = this.data;
-    for (index = i = 0, len = ref.length; i < len; index = ++i) {
-      value = ref[index];
-      callback.call(thisArg, value, index, sortedSet);
+    const data = this.data;
+    const len = data.length;
+    for (let i = 0; i < len; i++) {
+      callback.call(thisArg, data[i], i, sortedSet);
     }
-    return void 0;
   }
 
   findIterator(value) {
-    var index;
-    index = binarySearchForIndex(this.data, value, this.comparator);
+    const index = binarySearchForIndex(this.data, value, this.comparator);
     return new Iterator(this, index);
   }
 
@@ -129,7 +122,6 @@ class ArrayStrategy {
   endIterator() {
     return new Iterator(this, this.data.length);
   }
-
 };
 
 export default ArrayStrategy;

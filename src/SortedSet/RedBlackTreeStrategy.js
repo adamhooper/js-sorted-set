@@ -23,8 +23,7 @@ class Node {
 };
 
 const rotateLeft = (h) => {
-  var x;
-  x = h.right;
+  const x = h.right;
   h.right = x.left;
   x.left = h;
   x.isRed = h.isRed;
@@ -33,8 +32,7 @@ const rotateLeft = (h) => {
 };
 
 const rotateRight = (h) => {
-  var x;
-  x = h.left;
+  const x = h.left;
   h.left = x.right;
   x.right = h;
   x.isRed = h.isRed;
@@ -71,13 +69,12 @@ const moveRedRight = (h) => {
 };
 
 const insertInNode = (h, value, compare, onInsertConflict) => {
-  var cmp;
   if (h === null) {
     return new Node(value);
   }
   //if h.left isnt null && h.left.isRed && h.right isnt null && h.right.isRed
   //  colorFlip(h)
-  cmp = compare(value, h.value);
+  const cmp = compare(value, h.value);
   if (cmp === 0) {
     h.value = onInsertConflict(h.value, value);
   } else if (cmp < 0) {

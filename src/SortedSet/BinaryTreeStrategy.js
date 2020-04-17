@@ -1,13 +1,11 @@
-  
 import AbstractBinaryTreeStrategy from './AbstractBinaryTreeStrategy';
 
 class Node {
-  constructor(value1) {
-    this.value = value1;
+  constructor(value) {
+    this.value = value;
     this.left = null;
     this.right = null;
   }
-
 };
 
 const nodeAllTheWay = (node, leftOrRight) => {
@@ -19,11 +17,10 @@ const nodeAllTheWay = (node, leftOrRight) => {
 
 // Returns the subtree, minus value
 const binaryTreeDelete = (node, value, comparator) => {
-  var cmp, nextNode;
   if (node === null) {
     throw 'Value not in set';
   }
-  cmp = comparator(value, node.value);
+  const cmp = comparator(value, node.value);
   if (cmp < 0) {
     node.left = binaryTreeDelete(node.left, value, comparator);
   } else if (cmp > 0) {
@@ -36,7 +33,7 @@ const binaryTreeDelete = (node, value, comparator) => {
     } else if (node.left === null) {
       node = node.right;
     } else {
-      nextNode = nodeAllTheWay(node.right, 'left');
+      const nextNode = nodeAllTheWay(node.right, 'left');
       node.value = nextNode.value;
       node.right = binaryTreeDelete(node.right, nextNode.value, comparator);
     }
@@ -54,12 +51,12 @@ class BinaryTreeStrategy extends AbstractBinaryTreeStrategy {
   }
 
   insert(value) {
-    var cmp, compare, leftOrRight, parent;
-    compare = this.comparator;
+    const compare = this.comparator;
     if (this.root != null) {
-      parent = this.root;
+      let parent = this.root;
+      let leftOrRight = null;
       while (true) {
-        cmp = compare(value, parent.value);
+        const cmp = compare(value, parent.value);
         if (cmp === 0) {
           parent.value = this.onInsertConflict(parent.value, value);
           return;

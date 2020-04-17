@@ -47,8 +47,7 @@ class AbstractSortedSet {
   }
 
   map(callback, thisArg) {
-    var ret;
-    ret = [];
+    const ret = [];
     this.forEach(function(value, index, self) {
       return ret.push(callback.call(thisArg, value, index, self));
     });
@@ -56,8 +55,7 @@ class AbstractSortedSet {
   }
 
   filter(callback, thisArg) {
-    var ret;
-    ret = [];
+    const ret = [];
     this.forEach(function(value, index, self) {
       if (callback.call(thisArg, value, index, self)) {
         return ret.push(value);
@@ -67,22 +65,20 @@ class AbstractSortedSet {
   }
 
   every(callback, thisArg) {
-    var ret;
-    ret = true;
+    let ret = true;
     this.forEach(function(value, index, self) {
       if (ret && !callback.call(thisArg, value, index, self)) {
-        return ret = false;
+        ret = false;
       }
     });
     return ret;
   }
 
   some(callback, thisArg) {
-    var ret;
-    ret = false;
+    let ret = false;
     this.forEach(function(value, index, self) {
       if (!ret && callback.call(thisArg, value, index, self)) {
-        return ret = true;
+        ret = true;
       }
     });
     return ret;

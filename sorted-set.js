@@ -55,8 +55,7 @@
     }
 
     map(callback, thisArg) {
-      var ret;
-      ret = [];
+      const ret = [];
       this.forEach(function (value, index, self) {
         return ret.push(callback.call(thisArg, value, index, self));
       });
@@ -64,8 +63,7 @@
     }
 
     filter(callback, thisArg) {
-      var ret;
-      ret = [];
+      const ret = [];
       this.forEach(function (value, index, self) {
         if (callback.call(thisArg, value, index, self)) {
           return ret.push(value);
@@ -75,22 +73,20 @@
     }
 
     every(callback, thisArg) {
-      var ret;
-      ret = true;
+      let ret = true;
       this.forEach(function (value, index, self) {
         if (ret && !callback.call(thisArg, value, index, self)) {
-          return ret = false;
+          ret = false;
         }
       });
       return ret;
     }
 
     some(callback, thisArg) {
-      var ret;
-      ret = false;
+      let ret = false;
       this.forEach(function (value, index, self) {
         if (!ret && callback.call(thisArg, value, index, self)) {
-          return ret = true;
+          ret = true;
         }
       });
       return ret;
@@ -181,12 +177,11 @@
   }
 
   const binarySearchForIndex = (array, value, comparator) => {
-    var high, low, mid;
-    low = 0;
-    high = array.length;
+    let low = 0;
+    let high = array.length;
 
     while (low < high) {
-      mid = low + high >>> 1;
+      const mid = low + high >>> 1;
 
       if (comparator(array[mid], value) < 0) {
         low = mid + 1;
@@ -211,8 +206,7 @@
     }
 
     insert(value) {
-      var index;
-      index = binarySearchForIndex(this.data, value, this.comparator);
+      const index = binarySearchForIndex(this.data, value, this.comparator);
 
       if (this.data[index] !== void 0 && this.comparator(this.data[index], value) === 0) {
         return this.data.splice(index, 1, this.onInsertConflict(this.data[index], value));
@@ -222,8 +216,7 @@
     }
 
     remove(value) {
-      var index;
-      index = binarySearchForIndex(this.data, value, this.comparator);
+      const index = binarySearchForIndex(this.data, value, this.comparator);
 
       if (this.data[index] !== value) {
         throw 'Value not in set';
@@ -237,26 +230,21 @@
     }
 
     contains(value) {
-      var index;
-      index = binarySearchForIndex(this.data, value, this.comparator);
+      const index = binarySearchForIndex(this.data, value, this.comparator);
       return this.index !== this.data.length && this.data[index] === value;
     }
 
     forEachImpl(callback, sortedSet, thisArg) {
-      var i, index, len, ref, value;
-      ref = this.data;
+      const data = this.data;
+      const len = data.length;
 
-      for (index = i = 0, len = ref.length; i < len; index = ++i) {
-        value = ref[index];
-        callback.call(thisArg, value, index, sortedSet);
+      for (let i = 0; i < len; i++) {
+        callback.call(thisArg, data[i], i, sortedSet);
       }
-
-      return void 0;
     }
 
     findIterator(value) {
-      var index;
-      index = binarySearchForIndex(this.data, value, this.comparator);
+      const index = binarySearchForIndex(this.data, value, this.comparator);
       return new Iterator(this, index);
     }
 
@@ -271,10 +259,9 @@
   }
 
   const descendAllTheWay = (leftOrRight, node) => {
-    var parent; // Assumes node._iteratorParentNode is set
-
+    // Assumes node._iteratorParentNode is set
     while (node[leftOrRight] !== null) {
-      parent = node;
+      const parent = node;
       node = node[leftOrRight];
       node._iteratorParentNode = parent;
     }
@@ -283,7 +270,7 @@
   };
 
   const moveCursor = (leftOrRight, node) => {
-    var parent, rightOrLeft;
+    let parent, rightOrLeft;
 
     if (node[leftOrRight] !== null) {
       parent = node;
@@ -311,29 +298,25 @@
     }
 
     next() {
-      var node;
-
       if (this.node === null) {
         return null;
       } else {
-        node = moveCursor('right', this.node);
+        const node = moveCursor('right', this.node);
         return new BinaryTreeIterator(this.tree, node);
       }
     }
 
     previous() {
-      var node;
-
       if (this.node === null) {
         if (this.tree.root === null) {
           return null;
         } else {
           this.tree.root._iteratorParentNode = null;
-          node = descendAllTheWay('right', this.tree.root);
+          const node = descendAllTheWay('right', this.tree.root);
           return new BinaryTreeIterator(this.tree, node);
         }
       } else {
-        node = moveCursor('left', this.node);
+        const node = moveCursor('left', this.node);
 
         if (node === null) {
           return null;
@@ -374,18 +357,17 @@
   }
 
   BinaryTreeIterator.find = function (tree, value, comparator) {
-    var cmp, nextNode, node, root;
-    root = tree.root;
+    const root = tree.root;
 
     if (root != null) {
       root._iteratorParentNode = null;
     }
 
-    node = root;
-    nextNode = null; // For finding an in-between node
+    let node = root;
+    let nextNode = null; // For finding an in-between node
 
     while (node !== null) {
-      cmp = comparator(value, node.value);
+      const cmp = comparator(value, node.value);
 
       if (cmp === 0) {
         break;
@@ -415,13 +397,11 @@
   };
 
   BinaryTreeIterator.left = tree => {
-    var node;
-
     if (tree.root === null) {
       return new BinaryTreeIterator(tree, null);
     } else {
       tree.root._iteratorParentNode = null;
-      node = descendAllTheWay('left', tree.root);
+      const node = descendAllTheWay('left', tree.root);
       return new BinaryTreeIterator(tree, node);
     }
   };
@@ -444,8 +424,7 @@
 
   class AbstractBinaryTree {
     toArray() {
-      var ret;
-      ret = [];
+      const ret = [];
       binaryTreeTraverse(this.root, function (value) {
         return ret.push(value);
       });
@@ -457,22 +436,19 @@
     }
 
     forEachImpl(callback, sortedSet, thisArg) {
-      var i;
-      i = 0;
+      let i = 0;
       binaryTreeTraverse(this.root, function (value) {
         callback.call(thisArg, value, i, sortedSet);
-        return i += 1;
+        i += 1;
       });
-      return void 0;
     }
 
     contains(value) {
-      var cmp, comparator, node;
-      comparator = this.comparator;
-      node = this.root;
+      const comparator = this.comparator;
+      let node = this.root;
 
       while (node !== null) {
-        cmp = comparator(value, node.value);
+        const cmp = comparator(value, node.value);
 
         if (cmp === 0) {
           break;
@@ -501,8 +477,8 @@
   }
 
   class Node {
-    constructor(value1) {
-      this.value = value1;
+    constructor(value) {
+      this.value = value;
       this.left = null;
       this.right = null;
     }
@@ -519,13 +495,11 @@
 
 
   const binaryTreeDelete = (node, value, comparator) => {
-    var cmp, nextNode;
-
     if (node === null) {
       throw 'Value not in set';
     }
 
-    cmp = comparator(value, node.value);
+    const cmp = comparator(value, node.value);
 
     if (cmp < 0) {
       node.left = binaryTreeDelete(node.left, value, comparator);
@@ -539,7 +513,7 @@
       } else if (node.left === null) {
         node = node.right;
       } else {
-        nextNode = nodeAllTheWay(node.right, 'left');
+        const nextNode = nodeAllTheWay(node.right, 'left');
         node.value = nextNode.value;
         node.right = binaryTreeDelete(node.right, nextNode.value, comparator);
       }
@@ -558,14 +532,14 @@
     }
 
     insert(value) {
-      var cmp, compare, leftOrRight, parent;
-      compare = this.comparator;
+      const compare = this.comparator;
 
       if (this.root != null) {
-        parent = this.root;
+        let parent = this.root;
+        let leftOrRight = null;
 
         while (true) {
-          cmp = compare(value, parent.value);
+          const cmp = compare(value, parent.value);
 
           if (cmp === 0) {
             parent.value = this.onInsertConflict(parent.value, value);
@@ -613,8 +587,7 @@
   }
 
   const rotateLeft = h => {
-    var x;
-    x = h.right;
+    const x = h.right;
     h.right = x.left;
     x.left = h;
     x.isRed = h.isRed;
@@ -623,8 +596,7 @@
   };
 
   const rotateRight = h => {
-    var x;
-    x = h.left;
+    const x = h.left;
     h.left = x.right;
     x.right = h;
     x.isRed = h.isRed;
@@ -665,15 +637,13 @@
   };
 
   const insertInNode = (h, value, compare, onInsertConflict) => {
-    var cmp;
-
     if (h === null) {
       return new Node$1(value);
     } //if h.left isnt null && h.left.isRed && h.right isnt null && h.right.isRed
     //  colorFlip(h)
 
 
-    cmp = compare(value, h.value);
+    const cmp = compare(value, h.value);
 
     if (cmp === 0) {
       h.value = onInsertConflict(h.value, value);

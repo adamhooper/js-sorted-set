@@ -1,9 +1,7 @@
-
 const descendAllTheWay = (leftOrRight, node) => {
-  var parent;
   // Assumes node._iteratorParentNode is set
   while (node[leftOrRight] !== null) {
-    parent = node;
+    const parent = node;
     node = node[leftOrRight];
     node._iteratorParentNode = parent;
   }
@@ -11,7 +9,7 @@ const descendAllTheWay = (leftOrRight, node) => {
 };
 
 const moveCursor = (leftOrRight, node) => {
-  var parent, rightOrLeft;
+  let parent, rightOrLeft;
   if (node[leftOrRight] !== null) {
     parent = node;
     node = node[leftOrRight];
@@ -36,27 +34,25 @@ class BinaryTreeIterator {
   }
 
   next() {
-    var node;
     if (this.node === null) {
       return null;
     } else {
-      node = moveCursor('right', this.node);
+      const node = moveCursor('right', this.node);
       return new BinaryTreeIterator(this.tree, node);
     }
   }
 
   previous() {
-    var node;
     if (this.node === null) {
       if (this.tree.root === null) {
         return null;
       } else {
         this.tree.root._iteratorParentNode = null;
-        node = descendAllTheWay('right', this.tree.root);
+        const node = descendAllTheWay('right', this.tree.root);
         return new BinaryTreeIterator(this.tree, node);
       }
     } else {
-      node = moveCursor('left', this.node);
+      const node = moveCursor('left', this.node);
       if (node === null) {
         return null;
       } else {
@@ -94,15 +90,14 @@ class BinaryTreeIterator {
 };
 
 BinaryTreeIterator.find = function(tree, value, comparator) {
-  var cmp, nextNode, node, root;
-  root = tree.root;
+  const root = tree.root;
   if (root != null) {
     root._iteratorParentNode = null;
   }
-  node = root;
-  nextNode = null; // For finding an in-between node
+  let node = root;
+  let nextNode = null; // For finding an in-between node
   while (node !== null) {
-    cmp = comparator(value, node.value);
+    const cmp = comparator(value, node.value);
     if (cmp === 0) {
       break;
     } else if (cmp < 0) {
@@ -128,12 +123,11 @@ BinaryTreeIterator.find = function(tree, value, comparator) {
 };
 
 BinaryTreeIterator.left = (tree) => {
-  var node;
   if (tree.root === null) {
     return new BinaryTreeIterator(tree, null);
   } else {
     tree.root._iteratorParentNode = null;
-    node = descendAllTheWay('left', tree.root);
+    const node = descendAllTheWay('left', tree.root);
     return new BinaryTreeIterator(tree, node);
   }
 };
@@ -143,4 +137,3 @@ BinaryTreeIterator.right = (tree) => {
 };
 
 export default BinaryTreeIterator;
-

@@ -14,8 +14,7 @@ const binaryTreeTraverse = (node, callback) => {
 // `.left`, `.right` and `.value` properties.
 class AbstractBinaryTree {
   toArray() {
-    var ret;
-    ret = [];
+    const ret = [];
     binaryTreeTraverse(this.root, function(value) {
       return ret.push(value);
     });
@@ -27,21 +26,18 @@ class AbstractBinaryTree {
   }
 
   forEachImpl(callback, sortedSet, thisArg) {
-    var i;
-    i = 0;
+    let i = 0;
     binaryTreeTraverse(this.root, function(value) {
       callback.call(thisArg, value, i, sortedSet);
-      return i += 1;
+      i += 1;
     });
-    return void 0;
   }
 
   contains(value) {
-    var cmp, comparator, node;
-    comparator = this.comparator;
-    node = this.root;
+    const comparator = this.comparator;
+    let node = this.root;
     while (node !== null) {
-      cmp = comparator(value, node.value);
+      const cmp = comparator(value, node.value);
       if (cmp === 0) {
         break;
       } else if (cmp < 0) {
