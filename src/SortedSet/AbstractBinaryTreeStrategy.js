@@ -7,7 +7,6 @@ const binaryTreeTraverse = (node, callback) => {
     callback(node.value);
     binaryTreeTraverse(node.right, callback);
   }
-  return void 0;
 };
 
 // An AbstractBinaryTree has a @root. @root is null or an object with

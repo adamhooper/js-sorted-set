@@ -44,7 +44,6 @@ const colorFlip = (h) => {
   h.isRed = !h.isRed;
   h.left.isRed = !h.left.isRed;
   h.right.isRed = !h.right.isRed;
-  return void 0;
 };
 
 const moveRedLeft = (h) => {
@@ -180,7 +179,6 @@ class RedBlackTreeStrategy extends AbstractBinaryTreeStrategy {
   insert(value) {
     this.root = insertInNode(this.root, value, this.comparator, this.onInsertConflict);
     this.root.isRed = false; // always
-    return void 0;
   }
 
   remove(value) {
@@ -188,7 +186,6 @@ class RedBlackTreeStrategy extends AbstractBinaryTreeStrategy {
     if (this.root !== null) {
       this.root.isRed = false;
     }
-    return void 0;
   }
 
 };
