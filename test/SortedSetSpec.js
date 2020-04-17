@@ -1,4 +1,3 @@
-
 require('./test_helper');
 const SortedSet = require('../lib/SortedSet');
 
