@@ -416,8 +416,6 @@
       callback(node.value);
       binaryTreeTraverse(node.right, callback);
     }
-
-    return void 0;
   }; // An AbstractBinaryTree has a @root. @root is null or an object with
   // `.left`, `.right` and `.value` properties.
 
@@ -608,7 +606,6 @@
     h.isRed = !h.isRed;
     h.left.isRed = !h.left.isRed;
     h.right.isRed = !h.right.isRed;
-    return void 0;
   };
 
   const moveRedLeft = h => {
@@ -768,8 +765,6 @@
     insert(value) {
       this.root = insertInNode(this.root, value, this.comparator, this.onInsertConflict);
       this.root.isRed = false; // always
-
-      return void 0;
     }
 
     remove(value) {
@@ -778,8 +773,6 @@
       if (this.root !== null) {
         this.root.isRed = false;
       }
-
-      return void 0;
     }
 
   }

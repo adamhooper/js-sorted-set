@@ -1,6 +1,6 @@
 {
   "name": "js-sorted-set",
-  "version": "0.4.0",
+  "version": "0.6.0",
   "description": "Sorted set data structures",
   "main": "./lib/SortedSet.js",
   "browser": "./sorted-set.js",
