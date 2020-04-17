@@ -1,7 +1,7 @@
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
   typeof define === 'function' && define.amd ? define(factory) :
-  (global = global || self, global.SortedSet = factory());
+  (global = global || self, global['sorted-set'] = factory());
 }(this, (function () { 'use strict';
 
   class AbstractSortedSet {
@@ -781,4 +781,4 @@
   return SortedSet;
 
 })));
-//# sourceMappingURL=SortedSet.umd-bundle.js.map
+//# sourceMappingURL=sorted-set.js.map

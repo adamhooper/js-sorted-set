@@ -3,12 +3,13 @@
   "version": "0.4.0",
   "description": "Sorted set data structures",
   "main": "./lib/SortedSet.js",
-  "module": "./es/SortedSet.js",
+  "browser": "./sorted-set.js",
   "scripts": {
-    "test": "mocha",
+    "test": "npm run build-cjs && mocha",
     "build-cjs": "babel ./src -d ./lib",
     "build-umd": "rollup --config",
-    "build": "npm run build-cjs && npm run build-umd"
+    "build": "npm run build-cjs && npm run build-umd",
+    "publish": "npm run build-cjs && mocha && npm publish"
   },
   "repository": {
     "type": "git",
@@ -59,6 +60,8 @@
         }
       ]
     ],
-    "plugins": ["add-module-exports"]
+    "plugins": [
+      "add-module-exports"
+    ]
   }
 }

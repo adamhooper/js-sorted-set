@@ -1,18 +1,17 @@
-
 import { terser } from 'rollup-plugin-terser';
 
 export default {
   input: 'src/SortedSet.js',
   output: [
     {
-      name: 'SortedSet',
-      file: 'SortedSet.umd-bundle.js',
+      name: 'sorted-set',
+      file: 'sorted-set.js',
       format: 'umd',
       sourcemap: true,
     },
     {
-      name: 'SortedSet',
-      file: 'SortedSet.umd-bundle.min.js',
+      name: 'sorted-set',
+      file: 'sorted-set.min.js',
       format: 'umd',
       sourcemap: true,
       plugins: [terser()],

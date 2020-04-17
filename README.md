@@ -10,39 +10,45 @@ As an illustration, let's build a simple sorted set out of an `Array`:
 
 | Operation | Syntax (simple JavaScript Array) |
 | --------- | -------------------------------- |
-| Create | `var set = [];` |
-| Insert | `set.push(value);` |
-| Remove | `set.splice(set.indexOf(value), 1);` |
-| Iterate | `set.sort(); set.forEach(doSomething);` |
-| Find | `set.sort(); var index = set.indexOf(value);` |
-| Previous | `var previousIndex = index - 1;` |
-| Next | `var nextIndex = index + 1;` |
-| Test | `var isInSet = set.indexOf(value) != -1;` |
+| Create | `const set = []` |
+| Insert | `set.push(value)` |
+| Remove | `set.splice(set.indexOf(value), 1)` |
+| Iterate | `set.sort(); set.forEach(doSomething)` |
+| Find | `set.sort(); const index = set.indexOf(value)` |
+| Previous | `const previousIndex = index - 1` |
+| Next | `const nextIndex = index + 1` |
+| Test | `const isInSet = set.indexOf(value) != -1` |
 
 ... this works, but it's a bit cryptic and some operations--notably iterate--
 will be very slow with large sets.
 
-Installing
-==========
+Usage
+=====
 
-You can `npm install js-sorted-set` or `bower install js-sorted-set`.
-Alternatively, just download `sorted-set.js` from this directory.
+You can `npm install js-sorted-set`. Alternatively, just download
+`sorted-set.js` from this directory.
 
-Include it through [RequireJS](http://requirejs.org/) or
-[Browserify](http://browserify.org). Or, to pollute your global scope, insert
-this in your HTML:
+To use it on a Website built with Webpack or Rollup:
 
-    <script src="priority-queue.js"></script>
+    import SortedSet from 'js-sorted-set'
 
-Then write code like this:
+To use it in Node:
 
-    var set = new SortedSet({ comparator: function(a, b) { return b - a; }});
-    set.insert(5);
-    set.insert(3);
-    set.insert(2);
-    set.remove(3);
-    var yes = set.contains(2);
-    console.log(set.map(function(x) { return x * 2; })); // returns [ 20, 4 ]
+    const SortedSet = require('js-sorted-set')
+
+Or, to pollute your global scope, insert this in your HTML:
+
+    <script src="path/to/sorted-set.js"></script>
+
+Now that you have the `SortedSet` class, here's how to use it:
+
+    const set = new SortedSet({ comparator: function(a, b) { return b - a }})
+    set.insert(5)
+    set.insert(3)
+    set.insert(2)
+    set.remove(3)
+    const yes = set.contains(2)
+    console.log(set.map(function(x) { return x * 2 })) // returns [ 20, 4 ]
 
 Operations
 ==========
@@ -51,36 +57,36 @@ The SortedSet API:
 
 | Operation | Syntax (js-sorted-set) | Notes |
 | --------- | ----------------------- | ----- |
-| Create | `var set = new SortedSet();` |
-| Insert | `set.insert(value);` |
-| Remove | `set.remove(value);` |
-| Clear | `set.clear();` |
-| Length | `set.length;` |
-| Test | `set.contains(value);` | Returns `true` or `false` |
-| Iterate | `set.forEach(doSomething);` | Plus `set.map()` and other [iterative methods](https://developer.mozilla.org/en-US/docs/Web/JavaScript/New_in_JavaScript/1.6#Array_extras), returning `Array`s and scalars |
+| Create | `const set = new SortedSet()` |
+| Insert | `set.insert(value)` |
+| Remove | `set.remove(value)` |
+| Clear | `set.clear()` |
+| Length | `set.length` |
+| Test | `set.contains(value)` | Returns `true` or `false` |
+| Iterate | `set.forEach(doSomething)` | Plus `set.map()` and other [iterative methods](https://developer.mozilla.org/en-US/docs/Web/JavaScript/New_in_JavaScript/1.6#Array_extras), returning `Array`s and scalars |
 
 Find, Previous and Next work with an Iterator pattern. An iterator is an
 immutible pointer into the space "between" two items in the set.
 
-    var iterator = set.beginIterator(); // points to the left of the leftmost item
-    var iterator2 = iterator.next(); // points to the left of the second item
-    var value = iterator.value(), value2 = iterator2.value();
-    var end = set.endIterator(); // points to the right of the final item
-    var value2 = end.value(); // null, because there is no item
+    const iterator = set.beginIterator() // points to the left of the leftmost item
+    const iterator2 = iterator.next() // points to the left of the second item
+    const value = iterator.value(), value2 = iterator2.value()
+    const end = set.endIterator() // points to the right of the final item
+    const value2 = end.value() // null, because there is no item
 
 Here's the full SortedSet iterator API:
 
 | Operation | Syntax (js-sorted-set) | Notes |
 | --------- | ---------------------- | ----- |
-| Length | `var len = set.length;` |
-| Find | `var iterator = set.findIterator(value);` | `iterator` points to the left of `value`. If `value` is not in `set`, `iterator` points to the left of the first item _greater than_ `value`. If `value` is greater than the final item in `set`, `iterator` points to the right of the final item. |
-| Begin | `var iterator = set.beginIterator();` | If `set` is empty, this is equivalent to `var iterator = set.endIterator();` |
-| End | `var iterator = set.endIterator();` | Points past the end of `set`; there is never a value here |
-| Value | `var value = iterator.value();` | For an end iterator, returns `null` |
-| Forward | `var iterator2 = iterator.next();` | If `iterator` is an end iterator, returns `null` |
-| Backward | `var iterator2 = iterator.previous();` | If `iterator` is a begin iterator, returns `null` |
-| Can go forward | `var isBegin = !iterator.hasPrevious();` | |
-| Can go backward | `var isEnd = !iterator.hasNext();` | Remember, if `iterator` is pointing to the left of the final item in `set`, then `hasNext()` will return `true` -- even though `iterator.next().value() === null` |
+| Length | `const len = set.length` |
+| Find | `const iterator = set.findIterator(value)` | `iterator` points to the left of `value`. If `value` is not in `set`, `iterator` points to the left of the first item _greater than_ `value`. If `value` is greater than the final item in `set`, `iterator` points to the right of the final item. |
+| Begin | `const iterator = set.beginIterator()` | If `set` is empty, this is equivalent to `const iterator = set.endIterator()` |
+| End | `const iterator = set.endIterator()` | Points past the end of `set` there is never a value here |
+| Value | `const value = iterator.value()` | For an end iterator, returns `null` |
+| Forward | `const iterator2 = iterator.next()` | If `iterator` is an end iterator, returns `null` |
+| Backward | `const iterator2 = iterator.previous()` | If `iterator` is a begin iterator, returns `null` |
+| Can go forward | `const isBegin = !iterator.hasPrevious()` | |
+| Can go backward | `const isEnd = !iterator.hasNext()` | Remember, if `iterator` is pointing to the left of the final item in `set`, then `hasNext()` will return `true` -- even though `iterator.next().value() === null` |
 
 All iterators on `set` become invalid as soon as something calls `set.insert()`
 or `set.remove()`.
@@ -92,8 +98,8 @@ How exactly will these elements be ordered? Let's add a `comparator` option.
 This is the argument we would pass to
 [Array.prototype.sort](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort):
 
-    var compareNumbers = function(a, b) { return a - b; };
-    var set = new SortedSet({ comparator: compareNumbers });
+    const compareNumbers = (a, b) => a - b
+    const set = new SortedSet({ comparator: compareNumbers })
 
 How to handle insert conflicts? We'll also add a `onInsertConflict` option that
 provides users with a way to specify what to do in case an item is inserted
@@ -109,11 +115,11 @@ class ships with three implementations such behavior:
 Unless differently specified through the `onInsertConflict` option, the 
 `SortedSet` class will default to `SortedSet.OnInsertConflictThrow`:
 
-    var set = new SortedSet({ 
+    const set = new SortedSet({ 
         onInsertConflict: SortedSet.OnInsertConflictThrow
-    });
-    set.insert("foo");
-    set.insert("foo"); // this will throw an error
+    })
+    set.insert("foo")
+    set.insert("foo") // throw an error
 
 Finally, some algorithms ask for really fast replacement mechanisms. So let's
 add a `setValue()` method to the iterator, which puts the onus on the user to
@@ -122,20 +128,20 @@ keep things ordered.
 Because this is a particularly dangerous API to use, you must set the option
 `allowSetValue: true` when creating the SortedSet.
 
-    var set = new SortedSet({ allowSetValue: true });
-    set.insert("foo");
-    set.insert("bar");
-    set.insert("baz");
+    const set = new SortedSet({ allowSetValue: true })
+    set.insert("foo")
+    set.insert("bar")
+    set.insert("baz")
 
     // Shortcut API
-    var iterator = set.findIterator("bar");
-    iterator.setValue("baq"); // It must stay ordered! Do not set "bbq" here!
+    const iterator = set.findIterator("bar")
+    iterator.setValue("baq") // It must stay ordered! Do not set "bbq" here!
     // The shortcut executes very quickly, but if the user makes a mistake,
     // future operations will likely fail
 
-    // iterator.setValue("baq"); here is equivalent to:
-    // set.remove("bar");
-    // set.insert("baq");
+    // iterator.setValue("baq") here is equivalent to:
+    // set.remove("bar")
+    // set.insert("baq")
 
 Strategies
 ==========
@@ -164,9 +170,9 @@ default, because its speed is the most predictable.
 
 Create the sets like this:
 
-    var set = new SortedSet({ strategy: SortedSet.ArrayStrategy }); // Array
-    var set = new SortedSet({ strategy: SortedSet.BinaryTreeStrategy }); // simple binary tree
-    var set = new SortedSet({ strategy: SortedSet.RedBlackTreeStrategy }); // default
+    const set = new SortedSet({ strategy: SortedSet.ArrayStrategy }) // Array
+    const set = new SortedSet({ strategy: SortedSet.BinaryTreeStrategy }) // simple binary tree
+    const set = new SortedSet({ strategy: SortedSet.RedBlackTreeStrategy }) // default
 
 Use the `ArrayStrategy` if your set will only have a few values at a time. Use
 the `BinaryTreeStrategy` if you've run lots of tests and can prove it's faster
