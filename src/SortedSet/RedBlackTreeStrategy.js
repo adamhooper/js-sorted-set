@@ -132,7 +132,7 @@ const removeFromNode = (h, value, compare) => {
   if (h === null) {
     throw 'Value not in set';
   }
-  if (h.value !== value && compare(value, h.value) < 0) {
+  if (compare(value, h.value) < 0) {
     if (h.left === null) {
       throw 'Value not in set';
     }
@@ -145,7 +145,7 @@ const removeFromNode = (h, value, compare) => {
       h = rotateRight(h);
     }
     if (h.right === null) {
-      if (value === h.value) {
+      if (compare(value, h.value) === 0) {
         return null; // leaf node; LLRB assures no left value here
       } else {
         throw 'Value not in set';
@@ -154,7 +154,7 @@ const removeFromNode = (h, value, compare) => {
     if (!h.right.isRed && !(h.right.left !== null && h.right.left.isRed)) {
       h = moveRedRight(h);
     }
-    if (value === h.value) {
+    if (compare(value, h.value) === 0) {
       h.value = findMinNode(h.right).value;
       h.right = removeMinNode(h.right);
     } else {

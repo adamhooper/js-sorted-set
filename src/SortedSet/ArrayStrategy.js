@@ -87,7 +87,7 @@ class ArrayStrategy {
 
   remove(value) {
     const index = binarySearchForIndex(this.data, value, this.comparator);
-    if (this.data[index] !== value) {
+    if (this.comparator(this.data[index], value) !== 0) {
       throw 'Value not in set';
     }
     return this.data.splice(index, 1);
@@ -99,7 +99,7 @@ class ArrayStrategy {
 
   contains(value) {
     const index = binarySearchForIndex(this.data, value, this.comparator);
-    return this.index !== this.data.length && this.data[index] === value;
+    return this.index !== this.data.length && this.comparator(this.data[index], value) === 0;
   }
 
   forEachImpl(callback, sortedSet, thisArg) {

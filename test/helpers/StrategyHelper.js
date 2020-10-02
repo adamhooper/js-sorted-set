@@ -59,6 +59,7 @@ const describeStrategy = (description, strategy) => {
         expect(callback).not.to.have.been.called
       })
     })
+
     describe('with some numbers', function () {
       beforeEach(function () {
         priv = new strategy({
@@ -212,6 +213,56 @@ const describeStrategy = (description, strategy) => {
       })
     })
 
+    describe('with objects for which cmp(a, b) === 0 and a !== b', function () {
+      beforeEach(function () {
+        priv = new strategy({
+          comparator: (a, b) => a.id - b.id
+        })
+        // Insert in this order so binary tree isn't one-sided
+        priv.insert({ id: 2 })
+        priv.insert({ id: 1 })
+        priv.insert({ id: 3 })
+      })
+
+      it('should insert in the middle', function () {
+        priv.insert({ id: 2.5 })
+        expect(priv.toArray()).to.deep.eq([{ id: 1 }, { id: 2 }, { id: 2.5 }, { id: 3 }])
+      })
+
+      it('should remove from the beginning', function () {
+        priv.remove({ id: 1 })
+        expect(priv.toArray()).to.deep.eq([{ id: 2 }, { id: 3 }])
+      })
+
+      it('should remove from the end', function () {
+        priv.remove({ id: 3 })
+        expect(priv.toArray()).to.deep.eq([{ id: 1 }, { id: 2 }])
+      })
+
+      it('should remove from the middle', function () {
+        priv.remove({ id: 2 })
+        expect(priv.toArray()).to.deep.eq([{ id: 1 }, { id: 3 }])
+      })
+
+      it('should contain a middle value', function () {
+        expect(priv.contains({ id: 2 })).to.eq(true)
+      })
+
+      it('should not contain a value in between two values', function () {
+        expect(priv.contains({ id: 1.5 })).to.eq(false)
+      })
+
+      it('should find an iterator', function () {
+        const iterator = priv.findIterator({ id: 2 })
+        expect(iterator.value()).to.deep.eq({ id: 2 })
+      })
+
+      it('should find an iterator between values', function () {
+        const iterator = priv.findIterator({ id: 1.5 })
+        expect(iterator.value()).to.deep.eq({ id: 2 })
+      })
+    })
+
     describe('with allowSetValue', function () {
       beforeEach(function () {
         priv = new strategy({
@@ -243,14 +294,8 @@ const describeStrategy = (description, strategy) => {
         }
         const onInsertConflict = SortedSet.OnInsertConflictThrow
         priv = new strategy({ comparator, onInsertConflict })
-        priv.insert({
-          v: 1,
-          q: 'a'
-        })
-        priv.insert({
-          v: 2,
-          q: 'b'
-        })
+        priv.insert({ v: 1, q: 'a' })
+        priv.insert({ v: 2, q: 'b' })
       })
 
       it('should throw when inserting an element that matches another', function () {
@@ -266,30 +311,15 @@ const describeStrategy = (description, strategy) => {
         }
         onInsertConflict = SortedSet.OnInsertConflictReplace
         priv = new strategy({ comparator, onInsertConflict })
-        priv.insert({
-          v: 1,
-          q: 'a'
-        })
-        priv.insert({
-          v: 2,
-          q: 'b'
-        })
+        priv.insert({ v: 1, q: 'a' })
+        priv.insert({ v: 2, q: 'b' })
       })
 
       it('should replace a matching element with the new element', function () {
-        priv.insert({
-          v: 1,
-          q: 'c'
-        })
+        priv.insert({ v: 1, q: 'c' })
         expect(priv.toArray()).to.deep.eq([
-          {
-            v: 1,
-            q: 'c'
-          },
-          {
-            v: 2,
-            q: 'b'
-          }
+          { v: 1, q: 'c' },
+          { v: 2, q: 'b' }
         ])
       })
     })
@@ -301,30 +331,15 @@ const describeStrategy = (description, strategy) => {
         }
         const onInsertConflict = SortedSet.OnInsertConflictIgnore
         priv = new strategy({ comparator, onInsertConflict })
-        priv.insert({
-          v: 1,
-          q: 'a'
-        })
-        priv.insert({
-          v: 2,
-          q: 'b'
-        })
+        priv.insert({ v: 1, q: 'a' })
+        priv.insert({ v: 2, q: 'b' })
       })
 
       it('should ignore the new element when inserting an element that matches another ', function () {
-        priv.insert({
-          v: 1,
-          q: 'c'
-        })
+        priv.insert({ v: 1, q: 'c' })
         expect(priv.toArray()).to.deep.eq([
-          {
-            v: 1,
-            q: 'a'
-          },
-          {
-            v: 2,
-            q: 'b'
-          }
+          { v: 1, q: 'a' },
+          { v: 2, q: 'b' }
         ])
       })
     })

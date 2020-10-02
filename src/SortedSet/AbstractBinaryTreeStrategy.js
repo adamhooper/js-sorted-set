@@ -45,7 +45,7 @@ class AbstractBinaryTree {
         node = node.right;
       }
     }
-    return node !== null && node.value === value;
+    return node !== null && comparator(node.value, value) === 0;
   }
 
   findIterator(value) {

@@ -52,7 +52,7 @@ class BinaryTreeStrategy extends AbstractBinaryTreeStrategy {
 
   insert(value) {
     const compare = this.comparator;
-    if (this.root != null) {
+    if (this.root !== null) {
       let parent = this.root;
       let leftOrRight = null;
       while (true) {
