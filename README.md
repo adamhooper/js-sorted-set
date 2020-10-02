@@ -203,8 +203,8 @@ Contributing
 1. Fork this repository
 2. Run `npm install`
 3. Write the behavior you expect in `test/`
-4. Edit files in `coffee/` until `npm test` says you're done
-5. Run `npm run dist` to update build products in the `dist/` folder
+4. Edit files in `src/` until `npm test` says you're done
+5. Run `npm run build` to update build products
 6. Submit a pull request
 
 License

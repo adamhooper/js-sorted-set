@@ -218,7 +218,7 @@
     remove(value) {
       const index = binarySearchForIndex(this.data, value, this.comparator);
 
-      if (this.data[index] !== value) {
+      if (this.comparator(this.data[index], value) !== 0) {
         throw 'Value not in set';
       }
 
@@ -231,7 +231,7 @@
 
     contains(value) {
       const index = binarySearchForIndex(this.data, value, this.comparator);
-      return this.index !== this.data.length && this.data[index] === value;
+      return this.index !== this.data.length && this.comparator(this.data[index], value) === 0;
     }
 
     forEachImpl(callback, sortedSet, thisArg) {
@@ -457,7 +457,7 @@
         }
       }
 
-      return node !== null && node.value === value;
+      return node !== null && comparator(node.value, value) === 0;
     }
 
     findIterator(value) {
@@ -532,7 +532,7 @@
     insert(value) {
       const compare = this.comparator;
 
-      if (this.root != null) {
+      if (this.root !== null) {
         let parent = this.root;
         let leftOrRight = null;
 
@@ -711,7 +711,7 @@
       throw 'Value not in set';
     }
 
-    if (h.value !== value && compare(value, h.value) < 0) {
+    if (compare(value, h.value) < 0) {
       if (h.left === null) {
         throw 'Value not in set';
       }
@@ -727,7 +727,7 @@
       }
 
       if (h.right === null) {
-        if (value === h.value) {
+        if (compare(value, h.value) === 0) {
           return null; // leaf node; LLRB assures no left value here
         } else {
           throw 'Value not in set';
@@ -738,7 +738,7 @@
         h = moveRedRight(h);
       }
 
-      if (value === h.value) {
+      if (compare(value, h.value) === 0) {
         h.value = findMinNode(h.right).value;
         h.right = removeMinNode(h.right);
       } else {
