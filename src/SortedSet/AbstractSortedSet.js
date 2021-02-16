@@ -20,10 +20,18 @@ class AbstractSortedSet {
     return this;
   }
 
+  add(value) {
+    return this.add(value);
+  }
+
   remove(value) {
     this.priv.remove(value);
     this.length -= 1;
     return this;
+  }
+
+  delete(value) {
+    return this.remove(value);
   }
 
   clear() {
@@ -33,6 +41,10 @@ class AbstractSortedSet {
   }
 
   contains(value) {
+    return this.priv.contains(value);
+  }
+
+  has(value) {
     return this.priv.contains(value);
   }
 
