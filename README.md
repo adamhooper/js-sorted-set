@@ -48,7 +48,7 @@ Now that you have the `SortedSet` class, here's how to use it:
     set.insert(2)
     set.remove(3)
     const yes = set.contains(2)
-    console.log(set.map(function(x) { return x * 2 })) // returns [ 20, 4 ]
+    console.log(set.map(function(x) { return x * 2 })) // returns [ 10, 4 ]
 
 Operations
 ==========
