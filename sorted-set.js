@@ -406,13 +406,13 @@
     }
   }
 
-  class Node$1 {
+  let Node$1 = class Node {
     constructor(value) {
       this.value = value;
       this.left = null;
       this.right = null;
     }
-  }
+  };
   const nodeAllTheWay = (node, leftOrRight) => {
     while (node[leftOrRight] !== null) {
       node = node[leftOrRight];

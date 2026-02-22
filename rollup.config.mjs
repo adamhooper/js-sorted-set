@@ -1,5 +1,5 @@
-import { terser } from 'rollup-plugin-terser';
-import babel from 'rollup-plugin-babel';
+import babel from '@rollup/plugin-babel';
+import terser from '@rollup/plugin-terser';
 
 export default {
   input: 'src/SortedSet.js',
@@ -21,6 +21,7 @@ export default {
   plugins: [
     babel({
       exclude: 'node_modules/**',
+      babelHelpers: 'bundled',
       presets: [
         ["@babel/env", {"modules": false, "targets": ">1%, not dead, not IE 11"}]
       ],
