@@ -25,5 +25,6 @@ export default {
         ["@babel/env", {"modules": false, "targets": ">1%, not dead, not IE 11"}]
       ],
     })
-  ]
+  ],
+  strictDeprecations: true
 };
