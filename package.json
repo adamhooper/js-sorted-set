@@ -40,7 +40,7 @@
     "babel-plugin-add-module-exports": "^1.0.2",
     "chai": "^6.2.2",
     "mocha": "^11.7.5",
-    "rollup": "^3.30.0",
+    "rollup": "^4.59.0",
     "sinon": "^21.0.1",
     "sinon-chai": "^4.0.1"
   },
